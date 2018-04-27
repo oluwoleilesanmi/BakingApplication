@@ -25,4 +25,5 @@ public interface MvpView {
     void hideKeyboard();
 
     void updateViewInActivity(ArrayList<Recipe> recipeList);
+
 }

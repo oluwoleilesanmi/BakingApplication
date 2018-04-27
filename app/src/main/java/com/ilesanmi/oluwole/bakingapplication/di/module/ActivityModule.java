@@ -7,6 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.ActivityContext;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailAdapter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailMvpView;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailMvpView;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpView;
@@ -56,6 +63,11 @@ public class ActivityModule {
     }
 
     @Provides
+    DetailAdapter provideIngredentandStepAdapter() {
+        return new DetailAdapter(new ArrayList<Recipe>());
+    }
+
+    @Provides
     LinearLayoutManager provideLayoutManager() {
         return new LinearLayoutManager(activity);
     }
@@ -63,6 +75,18 @@ public class ActivityModule {
     @Provides
     @PerActivity
     MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    StepDetailMvpPresenter<StepDetailMvpView> provideStepDetailPresenter(StepDetailPresenter<StepDetailMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    DetailMvpPresenter<DetailMvpView> provideDetailPresenter(DetailPresenter<DetailMvpView> presenter) {
         return presenter;
     }
 }

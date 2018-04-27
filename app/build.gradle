@@ -50,11 +50,6 @@ dependencies {
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'javax.inject:javax.inject:1'
 
-    
-//    implementation 'com.google.dagger:dagger-android:2.15'
-//    implementation 'com.google.dagger:dagger-android-support:2.15' // if you use the support libraries
-//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
-
 
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
@@ -64,7 +59,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-
+    implementation 'com.google.android.exoplayer:exoplayer:r2.4.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:r2.4.0'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:r2.4.0'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:r2.4.0'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:r2.4.0'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:r2.4.0'
 
 
 }

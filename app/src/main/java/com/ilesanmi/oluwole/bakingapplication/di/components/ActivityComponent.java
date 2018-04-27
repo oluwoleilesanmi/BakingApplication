@@ -3,6 +3,8 @@ package com.ilesanmi.oluwole.bakingapplication.di.components;
 
 import com.ilesanmi.oluwole.bakingapplication.di.module.ActivityModule;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainActivity;
 
 import dagger.Component;
@@ -16,6 +18,10 @@ import dagger.Component;
 public interface ActivityComponent {
 
     void inject(MainActivity activity);
+
+    void inject(StepDetailFragment fragment);
+
+    void inject(DetailActivity activity);
 
 
 }

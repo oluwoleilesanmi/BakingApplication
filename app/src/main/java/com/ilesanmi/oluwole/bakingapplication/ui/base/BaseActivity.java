@@ -48,6 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     }
 
+    public void onFragmentAttached() {
+
+    }
+
     @Override
     public void showMessage(String message) {
 
@@ -66,4 +70,5 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
    public void updateViewInActivity(ArrayList<Recipe> recipeList){
 
    }
+
 }

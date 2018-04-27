@@ -19,6 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.main.MainActivity"/>
+
     </application>
 
 </manifest>

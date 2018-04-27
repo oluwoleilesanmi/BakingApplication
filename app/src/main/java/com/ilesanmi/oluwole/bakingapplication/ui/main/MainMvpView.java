@@ -1,5 +1,7 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.main;
 
+import android.content.Context;
+
 import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 
 /**
@@ -8,4 +10,5 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
 
+    void openDetailActivity( int i);
 }
