@@ -7,6 +7,7 @@ import com.ilesanmi.oluwole.bakingapplication.MvpApplication;
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
 import com.ilesanmi.oluwole.bakingapplication.di.module.ApplicationModule;
+import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetActivity;
 
 import javax.inject.Singleton;
 

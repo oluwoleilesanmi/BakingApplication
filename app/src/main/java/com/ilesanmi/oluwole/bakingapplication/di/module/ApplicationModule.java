@@ -1,6 +1,7 @@
 package com.ilesanmi.oluwole.bakingapplication.di.module;
 
 import android.app.Application;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 
 import com.ilesanmi.oluwole.bakingapplication.data.ApplicationDataManager;
@@ -32,6 +33,7 @@ public class ApplicationModule {
     Context provideContext() {
         return mApplication;
     }
+
 
     @Provides
     Application provideApplication() {

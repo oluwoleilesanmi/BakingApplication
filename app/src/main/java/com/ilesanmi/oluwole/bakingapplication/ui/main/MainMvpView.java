@@ -1,6 +1,5 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.main;
 
-import android.content.Context;
 
 import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 

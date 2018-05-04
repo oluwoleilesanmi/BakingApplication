@@ -1,7 +1,9 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.main;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
             @Override
             public void OnItemClick(View view, int position) {
                 Log.i("Activity click", Integer.toString(position));
+                setSharedPreference("positionClicked",position,MainActivity.this);
                 startActivity(DetailActivity.getStartIntent(MainActivity.this,position));
             }
         });
@@ -64,6 +67,13 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     public void updateViewInActivity(ArrayList<Recipe> recipeList){
         mRecipeAdapter.addItems(recipeList);
+    }
+
+    public static void setSharedPreference(String key, int value, Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(key, value);
+        editor.commit();
     }
 
 

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe implements Parcelable {
@@ -16,14 +17,14 @@ public class Recipe implements Parcelable {
     @SerializedName("name")
     @Expose
     private String name;
-
+    //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = null;
-
+    private List<Recipe.Ingredient> ingredients = new ArrayList<>();
+    //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = null;
+    private List<Recipe.Step> steps = new ArrayList<>();
 
     @SerializedName("servings")
     @Expose
@@ -34,9 +35,11 @@ public class Recipe implements Parcelable {
     private String image;
 
     public Recipe(Parcel in) {
-        in.readList(ingredients, List.class.getClassLoader());
-        in.readList(steps, List.class.getClassLoader());
-        // servings = in.readInt();
+        id = in.readInt();
+        name = in.readString();
+        in.readList(ingredients, Ingredient.class.getClassLoader());
+        in.readList(steps, Step.class.getClassLoader());
+        servings = in.readInt();
         image = in.readString();
     }
 
@@ -68,19 +71,19 @@ public class Recipe implements Parcelable {
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<Recipe.Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<Recipe.Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<Step> getSteps() {
+    public List<Recipe.Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<Recipe.Step> steps) {
         this.steps = steps;
     }
 
@@ -107,8 +110,11 @@ public class Recipe implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
         dest.writeList(ingredients);
         dest.writeList(steps);
+        dest.writeInt(servings);
         dest.writeString(image);
     }
 
@@ -203,6 +209,7 @@ public class Recipe implements Parcelable {
         private String thumbnailURL;
 
         protected Step(Parcel in) {
+            id = in.readInt();
             shortDescription = in.readString();
             description = in.readString();
             videoURL = in.readString();
@@ -268,6 +275,7 @@ public class Recipe implements Parcelable {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
             dest.writeString(shortDescription);
             dest.writeString(description);
             dest.writeString(videoURL);

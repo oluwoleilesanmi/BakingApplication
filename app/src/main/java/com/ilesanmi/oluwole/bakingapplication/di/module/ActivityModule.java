@@ -1,11 +1,13 @@
 package com.ilesanmi.oluwole.bakingapplication.di.module;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.ActivityContext;
+import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailMvpPresenter;
@@ -18,6 +20,9 @@ import com.ilesanmi.oluwole.bakingapplication.ui.main.MainAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpView;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetMvpView;
+import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetPresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.AppSchedulerProvider;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 
@@ -63,7 +68,7 @@ public class ActivityModule {
     }
 
     @Provides
-    DetailAdapter provideIngredentandStepAdapter() {
+    DetailAdapter provideIngredentAndStepAdapter() {
         return new DetailAdapter(new ArrayList<Recipe>());
     }
 
@@ -78,6 +83,7 @@ public class ActivityModule {
         return presenter;
     }
 
+
     @Provides
     @PerActivity
     StepDetailMvpPresenter<StepDetailMvpView> provideStepDetailPresenter(StepDetailPresenter<StepDetailMvpView> presenter) {
@@ -89,4 +95,19 @@ public class ActivityModule {
     DetailMvpPresenter<DetailMvpView> provideDetailPresenter(DetailPresenter<DetailMvpView> presenter) {
         return presenter;
     }
+
+    @Provides
+    @PerActivity
+    WidgetMvpPresenter<WidgetMvpView> provideWidgetPresenter(WidgetPresenter<WidgetMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    AppWidgetManager provideAppWidgetManager(@ApplicationContext Context context) {
+        return AppWidgetManager.getInstance(context);
+    }
+
+
+
+
 }
