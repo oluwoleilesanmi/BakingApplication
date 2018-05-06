@@ -6,16 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.TextView;
-
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.main.MainActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -28,9 +28,10 @@ public class DetailPresenter<V extends DetailMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    //Migrate the below observable to SQL-Database(Room)
     @Override
     public void onViewPrepared() {
-//        getMvpView().showLoading();
+    //getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .getRecipeApiCall()
                 .subscribeOn(getSchedulerProvider().io())
@@ -42,7 +43,7 @@ public class DetailPresenter<V extends DetailMvpView> extends BasePresenter<V>
                         if (recipes != null) {
                             getMvpView().updateViewInActivity(recipes);
 
-                            }
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

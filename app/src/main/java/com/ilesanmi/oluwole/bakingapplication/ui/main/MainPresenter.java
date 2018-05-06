@@ -28,9 +28,10 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    //Migrate the below observable to SQL-Database(Room)
     @Override
     public void onViewPrepared() {
-//        getMvpView().showLoading();
+    //getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .getRecipeApiCall()
                 .subscribeOn(getSchedulerProvider().io())

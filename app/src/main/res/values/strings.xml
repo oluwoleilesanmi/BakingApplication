@@ -4,4 +4,11 @@
     <string name="ingredients">Ingredients</string>
     <string name="add_widget">Add widget</string>
     <string name="title_activity_widget">WidgetActivity</string>
+
+
+    <!--Strings used in Espresso testing for MainActivity.class -->
+    <string name="main_activity_recycler_view_first_item">Nutella Pie</string>
+    <string name="main_activity_recycler_view_second_item">Brownies</string>
+    <string name="main_activity_recycler_view_third_item">Yellow Cake</string>
+    <string name="main_activity_recycler_view_fourth_item">Cheesecake</string>
 </resources>

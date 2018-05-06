@@ -10,7 +10,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.BasePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -26,10 +25,11 @@ public class WidgetPresenter<V extends WidgetMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    //Migrate the below observable to SQL-Database(Room)
     @Override
     public void onViewPrepared(final Context context, final AppWidgetManager appWidgetManager,
                                final int appWidgetId, final int position) {
-//        getMvpView().showLoading();
+        //getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .getRecipeApiCall()
                 .subscribeOn(getSchedulerProvider().io())
