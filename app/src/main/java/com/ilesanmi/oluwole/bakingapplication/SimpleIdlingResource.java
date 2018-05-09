@@ -4,6 +4,9 @@ import android.support.test.espresso.IdlingResource;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+//IdlingResource is an interface provided by Espresso,that
+//allows you to declare to Espresso a resource to wait for before running tests.
+
 public class SimpleIdlingResource implements IdlingResource {
 
         @Nullable private volatile ResourceCallback mCallback;

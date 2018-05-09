@@ -5,28 +5,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
@@ -34,7 +27,6 @@ import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -47,7 +39,7 @@ import butterknife.ButterKnife;
 
 public class StepDetailFragment extends BaseFragment implements StepDetailMvpView {
 
-    public static final String FRAGMENT_ID = "item_id";
+    public static final String FRAGMENT_ID = "Step_Detail_Id";
 
     @BindView(R.id.exo_player_view)
     SimpleExoPlayerView mExoPlayerView;
@@ -68,6 +60,9 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         Bundle arguments = new Bundle();
         arguments.putParcelable("RECIPE", recipe);
         arguments.putInt("POSITION_CLICKED", position);
+        arguments.putString(StepDetailFragment.FRAGMENT_ID,
+                StepDetailFragment.FRAGMENT_ID);
+
         StepDetailFragment fragment = new StepDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -77,7 +72,7 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_step, container, false);
 
         ButterKnife.bind(this, view);
 

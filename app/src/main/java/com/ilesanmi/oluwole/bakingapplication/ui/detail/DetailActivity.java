@@ -5,23 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.RecyclerViewListener;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.IngredientDetail.IngredientDetailFragment;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.LayoutActivity.ItemDetailActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
-import com.ilesanmi.oluwole.bakingapplication.ui.main.MainActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.main.MainAdapter;
-import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpPresenter;
-import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpView;
 
 import java.util.ArrayList;
 
@@ -29,6 +23,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -50,6 +45,8 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
 
     ArrayList<Recipe> mRecipes;
 
+    private boolean mTwoPane;
+
     public static Intent getStartIntent(Context context, int clickedPosition) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra("positionClickedInMainActivity", clickedPosition);
@@ -59,7 +56,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_item_list);
 
         getActivityComponent().inject(DetailActivity.this);
         ButterKnife.bind(this);
@@ -69,40 +66,65 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
 
         createRecyclerView();
 
-
-        if (savedInstanceState == null) {
-//            Bundle arguments = new Bundle();
-//            arguments.putString(StepDetailFragment.FRAGMENT_ID,
-//                    getIntent().getStringExtra(StepDetailFragment.FRAGMENT_ID));
-//            StepDetailFragment fragment = new StepDetailFragment();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.swap, fragment)
-//                    .commit();
+        if (findViewById(R.id.item_detail_container) != null) {
+            mTwoPane = true;
         }
     }
 
+    @OnClick(R.id.ingredients_text_view)
+    void onIngredientClick(View v) {
+        //if screen is large enough load fragment beside activity.
+        if (mTwoPane) {
+            Fragment fragment2 = IngredientDetailFragment
+                    .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), mRecipes));
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.item_detail_container, fragment2, IngredientDetailFragment.FRAGMENT_ID)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        //if screen not large enough load ItemDetailActivity.
+        else {
+            Intent intent = ItemDetailActivity
+                    .getStartIntent(DetailActivity.this, getClickedPositionFromIntentSentFromMainActivity(), mRecipes, 0, 1);
+
+            startActivity(intent);
+        }
+
+
+    }
+
+
     public void createRecyclerView() {
-        //set with
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mDetailAdapter);
         mDetailAdapter.setOnItemClickListener(new RecyclerViewListener.OnItemClickListener() {
-            //create a recyclerview listener and then if specific view in recyclerview is clicked get the view and position
+            //Create a Recycler-view listener and then if specific view in Recycler-view is clicked get the view and position
             @Override
             public void OnItemClick(View view, int position) {
-                Fragment fragment = setFragment(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), mRecipes),position);
+                if (mTwoPane) {
+                    Fragment fragment = setFragment(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), mRecipes), position);
 
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.swap, fragment)
-                        .commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.item_detail_container, fragment, StepDetailFragment.FRAGMENT_ID)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    Intent intent = ItemDetailActivity
+                            .getStartIntent(DetailActivity.this, getClickedPositionFromIntentSentFromMainActivity(), mRecipes, position, 0);
+
+                    startActivity(intent);
+                }
             }
         });
     }
-    public Parcelable getParcelable(int positionClickedInMainActivity, ArrayList<Recipe> recipes){
+
+    public Parcelable getParcelable(int positionClickedInMainActivity, ArrayList<Recipe> recipes) {
         return recipes.get(positionClickedInMainActivity);
     }
-    public Fragment setFragment(Parcelable parcelable,int positionClickedFromDetailActivity){
-        return StepDetailFragment.newInstance(parcelable,positionClickedFromDetailActivity);
+
+    public Fragment setFragment(Parcelable parcelable, int positionClickedFromDetailActivity) {
+        return StepDetailFragment.newInstance(parcelable, positionClickedFromDetailActivity);
     }
 
 
@@ -115,12 +137,10 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     }
 
     public int getClickedPositionFromIntentSentFromMainActivity() {
-        Intent intent = getIntent();
-        Integer positionClickedInMainActivity = intent.getIntExtra("positionClickedInMainActivity",0);
-        return positionClickedInMainActivity;
+        return getIntent().getIntExtra("positionClickedInMainActivity", 0);
     }
 
-    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList){
+    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList) {
         return recipeList.get(getClickedPositionFromIntentSentFromMainActivity()).getSteps().size();
     }
 

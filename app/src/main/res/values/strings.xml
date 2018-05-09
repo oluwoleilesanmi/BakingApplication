@@ -11,4 +11,5 @@
     <string name="main_activity_recycler_view_second_item">Brownies</string>
     <string name="main_activity_recycler_view_third_item">Yellow Cake</string>
     <string name="main_activity_recycler_view_fourth_item">Cheesecake</string>
+    <string name="title_activity_step_layout">StepLayoutActivity</string>
 </resources>
