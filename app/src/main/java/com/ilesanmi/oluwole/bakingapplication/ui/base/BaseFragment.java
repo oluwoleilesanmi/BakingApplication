@@ -25,23 +25,8 @@ public abstract class BaseFragment extends Fragment implements MvpView{
     }
 
     @Override
-    public void onError(String message) {
-
-    }
-
-    @Override
-    public void showMessage(String message) {
-
-    }
-
-    @Override
     public boolean isNetworkConnected() {
         return false;
-    }
-
-    @Override
-    public void hideKeyboard() {
-
     }
 
     @Override

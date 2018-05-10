@@ -23,7 +23,7 @@ public class WidgetActivity extends BaseActivity implements WidgetMvpView {
 
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-    int recipeClickedInMainActivity;
+    private int recipeClickedInMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

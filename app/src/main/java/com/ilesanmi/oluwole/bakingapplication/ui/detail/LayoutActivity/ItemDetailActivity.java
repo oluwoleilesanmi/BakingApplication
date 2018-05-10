@@ -52,24 +52,24 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
     }
 
-    public Parcelable getParcelable(int positionClickedInMainActivity, ArrayList<Recipe> recipes) {
+    private Parcelable getParcelable(int positionClickedInMainActivity, ArrayList<Recipe> recipes) {
         return recipes.get(positionClickedInMainActivity);
     }
 
-    public ArrayList<Recipe> getArrayList() {
+    private ArrayList<Recipe> getArrayList() {
         return getIntent().getParcelableArrayListExtra("ArrayList");
     }
 
-    public int getClickedPositionFromIntentSentFromMainActivity() {
+    private int getClickedPositionFromIntentSentFromMainActivity() {
         return getIntent().getIntExtra("positionClickedInMainActivity", 0);
     }
 
 
-    public int getClickedPositionFromIntentSentFromDetailActivity() {
+    private int getClickedPositionFromIntentSentFromDetailActivity() {
         return getIntent().getIntExtra("positionClickedInDetailActivity", 0);
     }
 
-    public boolean isPositionClickedInDetailActivityTextView() {
+    private boolean isPositionClickedInDetailActivityTextView() {
         return getIntent().getIntExtra("Click", 0) == 1;
     }
 }

@@ -2,7 +2,6 @@ package com.ilesanmi.oluwole.bakingapplication.ui.detail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import butterknife.ButterKnife;
 public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.IngredientAndStepViewHolder> {
 
     private ArrayList<Recipe> mRecipeList;
-    int size = 0;
-    int positioned= 0;
+    private int size = 0;
+    private int positioned= 0;
 
     public DetailAdapter(ArrayList<Recipe> mRecipeList) {
 //        Log.i("Adapter 1", "Nigeria");

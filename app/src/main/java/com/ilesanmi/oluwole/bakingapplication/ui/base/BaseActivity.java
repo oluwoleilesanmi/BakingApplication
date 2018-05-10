@@ -43,17 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     }
 
-    @Override
-    public void onError(String message) {
-
-    }
-
     public void onFragmentAttached() {
-
-    }
-
-    @Override
-    public void showMessage(String message) {
 
     }
 
@@ -62,12 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
         return false;
     }
 
-    @Override
-    public void hideKeyboard() {
-
-    }
-
-   public void updateViewInActivity(ArrayList<Recipe> recipeList){
+    public void updateViewInActivity(ArrayList<Recipe> recipeList){
 
    }
 

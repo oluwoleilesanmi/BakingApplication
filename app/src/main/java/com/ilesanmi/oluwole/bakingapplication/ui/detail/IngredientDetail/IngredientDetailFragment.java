@@ -23,7 +23,7 @@ public class IngredientDetailFragment extends BaseFragment implements Ingredient
     @BindView(R.id.ingredient_list_view)
     ListView mListView;
 
-    IngredientDetailAdapter mIngredientDetailAdapter;
+    private IngredientDetailAdapter mIngredientDetailAdapter;
 
     public static IngredientDetailFragment newInstance(Parcelable recipe) {
         Bundle arguments = new Bundle();

@@ -6,7 +6,6 @@ import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.widget.BakingWidgetProvider;
 import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetActivity;
 
 import dagger.Component;
