@@ -19,6 +19,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
@@ -105,11 +106,14 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         player.seekTo(currentWindow, playbackPosition);
 
         mExoPlayerView.setPlayer(player);
-        DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+        DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
 
         Uri uri = Uri.parse(getUri());
         DataSource.Factory mediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
-                Util.getUserAgent(getContext(), "detailFragment"));
+                Util.getUserAgent(getContext(), "detailFragment"), defaultBandwidthMeter);
+
+        DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
         MediaSource mediaSource = new ExtractorMediaSource(uri,
                 mediaDataSourceFactory, extractorsFactory, null, null);
@@ -164,10 +168,14 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     @SuppressLint("InlinedApi")
     private void hideSystemUi() {
         mExoPlayerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
+
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+                );
     }
+//    | View.SYSTEM_UI_FLAG_FULLSCREEN
+//
+//    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 }

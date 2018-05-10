@@ -50,7 +50,7 @@ public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.Ingredi
 
             super.onBindViewHolder(viewHolder, position);
             IngredientAndStepViewHolder recipiesViewHolder = (IngredientAndStepViewHolder) viewHolder;
-            recipiesViewHolder.bind(mRecipeList.get(positioned).getSteps().get(position).getShortDescription(), "");
+            recipiesViewHolder.bind(mRecipeList.get(positioned).getSteps().get(position).getShortDescription());
 
     }
 
@@ -76,7 +76,7 @@ public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.Ingredi
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(String author, String content) {
+        void bind(String author) {
 
             mTextView.setText(author);
             //listItemContentView.setText(content);

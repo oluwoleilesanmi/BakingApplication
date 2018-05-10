@@ -18,7 +18,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public static Intent getStartIntent(Context context, int clickedPositionMainActivity, ArrayList<Recipe> recipes, int clickedPositionDetailActivity, int click) {
         Intent intent = new Intent(context, ItemDetailActivity.class);
-        intent.putParcelableArrayListExtra("ArrayList",recipes);
+        intent.putParcelableArrayListExtra("ArrayList", recipes);
         intent.putExtra("positionClickedInMainActivity", clickedPositionMainActivity);
         intent.putExtra("Click", click);
         intent.putExtra("positionClickedInDetailActivity", clickedPositionDetailActivity);
@@ -30,33 +30,33 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
+        if (savedInstanceState == null) {
+            if (isPositionClickedInDetailActivityTextView()) {
+                Fragment fragmentIngredientDetail = IngredientDetailFragment
+                        .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), getArrayList()));
 
-        if(isPositionClickedInDetailActivityRecyclerView()){
-        Fragment fragmentIngredientDetail = IngredientDetailFragment
-                .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(),getArrayList()));
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.item_detail_container, fragmentIngredientDetail, IngredientDetailFragment.FRAGMENT_ID)
+                        .addToBackStack(null)
+                        .commit();
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.item_detail_container, fragmentIngredientDetail, IngredientDetailFragment.FRAGMENT_ID)
-                .addToBackStack(null)
-                .commit();
+            } else {
+                Fragment fragmentStepDetail = StepDetailFragment
+                        .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), getArrayList()), getClickedPositionFromIntentSentFromDetailActivity());
 
-        }else {
-            Fragment fragmentStepDetail = StepDetailFragment
-                    .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), getArrayList()), getClickedPositionFromIntentSentFromDetailActivity());
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, fragmentStepDetail, StepDetailFragment.FRAGMENT_ID)
-                    .addToBackStack(null)
-                    .commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.item_detail_container, fragmentStepDetail, StepDetailFragment.FRAGMENT_ID)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
-
     }
 
     public Parcelable getParcelable(int positionClickedInMainActivity, ArrayList<Recipe> recipes) {
         return recipes.get(positionClickedInMainActivity);
     }
 
-    public ArrayList<Recipe> getArrayList(){
+    public ArrayList<Recipe> getArrayList() {
         return getIntent().getParcelableArrayListExtra("ArrayList");
     }
 
@@ -69,7 +69,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         return getIntent().getIntExtra("positionClickedInDetailActivity", 0);
     }
 
-    public boolean isPositionClickedInDetailActivityRecyclerView(){
+    public boolean isPositionClickedInDetailActivityTextView() {
         return getIntent().getIntExtra("Click", 0) == 1;
     }
 }
