@@ -56,6 +56,11 @@ public class WidgetActivity extends BaseActivity implements WidgetMvpView {
 
     }
 
+    @Override
+    protected void setUp() {
+
+    }
+
     public static int getSharedPreference(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(key, 0);

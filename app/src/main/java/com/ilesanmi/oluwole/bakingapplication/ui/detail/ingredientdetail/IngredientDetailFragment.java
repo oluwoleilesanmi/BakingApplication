@@ -1,7 +1,6 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail.IngredientDetail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -25,12 +24,8 @@ public class IngredientDetailFragment extends BaseFragment implements Ingredient
 
     private IngredientDetailAdapter mIngredientDetailAdapter;
 
-    public static IngredientDetailFragment newInstance(Parcelable recipe) {
+    public static IngredientDetailFragment newInstance() {
         Bundle arguments = new Bundle();
-        arguments.putString(IngredientDetailFragment.FRAGMENT_ID,
-                IngredientDetailFragment.FRAGMENT_ID);
-
-        arguments.putParcelable("RECIPE", recipe);
         IngredientDetailFragment fragment = new IngredientDetailFragment();
         fragment.setArguments(arguments);
         return fragment;

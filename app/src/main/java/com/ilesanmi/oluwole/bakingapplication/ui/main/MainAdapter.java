@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;

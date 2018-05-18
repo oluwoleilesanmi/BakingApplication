@@ -1,12 +1,17 @@
 package com.ilesanmi.oluwole.bakingapplication.data.network;
 
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+
+
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
+
 import java.util.ArrayList;
-import io.reactivex.Observable;
+
+import io.reactivex.Flowable;
+
 
 public interface ApiHelper {
 
-    Observable<ArrayList<Recipe>> getRecipeApiCall();
+    Flowable<ArrayList<Recipe>> getRecipeApiCall();
 
 
 }

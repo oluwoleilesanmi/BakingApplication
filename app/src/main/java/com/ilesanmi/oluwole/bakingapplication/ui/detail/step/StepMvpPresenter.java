@@ -1,8 +1,8 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.step;
 
 import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpPresenter;
 
-public interface StepDetailMvpPresenter<V extends StepDetailMvpView>
+public interface StepMvpPresenter<V extends StepMvpView>
         extends MvpPresenter<V>  {
 
     void onViewPrepared(Boolean isInternetBound);

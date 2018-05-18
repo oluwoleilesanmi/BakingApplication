@@ -5,4 +5,6 @@ package com.ilesanmi.oluwole.bakingapplication.utils;
  */
 
 public class NetworkUtils {
+    public static final String BASE_URL = "http://go.udacity.com/";
+    public static final String FEED = "android-baking-app-json";
 }

@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
 
 import com.ilesanmi.oluwole.bakingapplication.MvpApplication;
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.components.BroadcastReceiverComponent;
 import com.ilesanmi.oluwole.bakingapplication.di.components.DaggerBroadcastReceiverComponent;
 import com.ilesanmi.oluwole.bakingapplication.di.module.BroadcastReceiverModule;
@@ -37,7 +37,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         Intent intent = new Intent(context, WidgetService.class);
         Bundle bundle = new Bundle();
 
-        bundle.putParcelableArrayList("Recipe_Array_List", recipes);
+      //  bundle.putParcelableArrayList("Recipe_Array_List", recipes);
         bundle.putInt("Position_Clicked", positionClicked);
 
         intent.putExtra("Bundle", bundle);

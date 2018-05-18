@@ -1,17 +1,26 @@
-package com.ilesanmi.oluwole.bakingapplication.data.network.model;
+package com.ilesanmi.oluwole.bakingapplication.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import com.google.gson.annotations.Expose;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.ColumnInfo;
+import com.google.gson.annotations.SerializedName;
+import android.arch.persistence.room.TypeConverters;
+import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
+import com.ilesanmi.oluwole.bakingapplication.utils.StepsConverter;
+import com.ilesanmi.oluwole.bakingapplication.utils.IngredientsConverter;
 
-public class Recipe implements Parcelable {
+
+
+
+@Entity(tableName = DbUtils.RECIPE_TABLE_NAME)
+public class Recipe {
+
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
 
     @SerializedName("name")
@@ -20,10 +29,14 @@ public class Recipe implements Parcelable {
     //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("ingredients")
     @Expose
+    @ColumnInfo(name = "ingredients_")
+    @TypeConverters(IngredientsConverter.class)
     private List<Recipe.Ingredient> ingredients = new ArrayList<>();
     //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("steps")
     @Expose
+    @ColumnInfo(name = "steps_")
+    @TypeConverters(StepsConverter.class)
     private List<Recipe.Step> steps = new ArrayList<>();
 
     @SerializedName("servings")
@@ -33,27 +46,6 @@ public class Recipe implements Parcelable {
     @SerializedName("image")
     @Expose
     private String image;
-
-    public Recipe(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        in.readList(ingredients, Ingredient.class.getClassLoader());
-        in.readList(steps, Step.class.getClassLoader());
-        servings = in.readInt();
-        image = in.readString();
-    }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 
     public Integer getId() {
         return id;
@@ -103,23 +95,9 @@ public class Recipe implements Parcelable {
         this.image = image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeList(ingredients);
-        dest.writeList(steps);
-        dest.writeInt(servings);
-        dest.writeString(image);
-    }
 
 
-    public static class Ingredient implements Parcelable {
+    public static class Ingredient {
         @SerializedName("quantity")
         @Expose
         private Double quantity;
@@ -131,24 +109,6 @@ public class Recipe implements Parcelable {
         @SerializedName("ingredient")
         @Expose
         private String ingredient;
-
-        protected Ingredient(Parcel in) {
-            quantity = in.readDouble();
-            measure = in.readString();
-            ingredient = in.readString();
-        }
-
-        public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
-            @Override
-            public Ingredient createFromParcel(Parcel in) {
-                return new Ingredient(in);
-            }
-
-            @Override
-            public Ingredient[] newArray(int size) {
-                return new Ingredient[size];
-            }
-        };
 
         public Double getQuantity() {
             return quantity;
@@ -174,20 +134,9 @@ public class Recipe implements Parcelable {
             this.ingredient = ingredient;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeDouble(quantity);
-            dest.writeString(measure);
-            dest.writeString(ingredient);
-        }
     }
 
-    public static class Step implements Parcelable {
+    public static class Step {
         @SerializedName("id")
         @Expose
         private Integer id;
@@ -207,26 +156,6 @@ public class Recipe implements Parcelable {
         @SerializedName("thumbnailURL")
         @Expose
         private String thumbnailURL;
-
-        protected Step(Parcel in) {
-            id = in.readInt();
-            shortDescription = in.readString();
-            description = in.readString();
-            videoURL = in.readString();
-            thumbnailURL = in.readString();
-        }
-
-        public static final Creator<Step> CREATOR = new Creator<Step>() {
-            @Override
-            public Step createFromParcel(Parcel in) {
-                return new Step(in);
-            }
-
-            @Override
-            public Step[] newArray(int size) {
-                return new Step[size];
-            }
-        };
 
         public Integer getId() {
             return id;
@@ -268,19 +197,6 @@ public class Recipe implements Parcelable {
             this.thumbnailURL = thumbnailURL;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(id);
-            dest.writeString(shortDescription);
-            dest.writeString(description);
-            dest.writeString(videoURL);
-            dest.writeString(thumbnailURL);
-        }
     }
 
 

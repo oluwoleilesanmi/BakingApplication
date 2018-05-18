@@ -1,29 +1,16 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
-import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
-import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.base.RecyclerViewListener;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.IngredientDetail.IngredientDetailFragment;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.LayoutActivity.ItemDetailActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
-
-import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.TabLayout;
+import com.ilesanmi.oluwole.bakingapplication.R;
+import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -31,6 +18,92 @@ import butterknife.OnClick;
 
 public class DetailActivity extends BaseActivity implements DetailMvpView {
 
+    @Inject
+    DetailPagerAdapter mPagerAdapter;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.feed_view_pager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        return intent;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+
+        getActivityComponent().inject(DetailActivity.this);
+        setUnBinder(ButterKnife.bind(this));
+
+        setUp();
+    }
+
+    @Override
+    protected void setUp() {
+
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        mPagerAdapter.setCount(2);
+
+        mViewPager.setAdapter(mPagerAdapter);
+
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.step)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.detail)));
+
+        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+
+    @Override
+    public void openDetailActivity() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     @Inject
     DetailMvpPresenter<DetailMvpView> mPresenter;
 
@@ -80,7 +153,6 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment2, IngredientDetailFragment.FRAGMENT_ID)
-                    .addToBackStack(null)
                     .commit();
         }
         //if screen not large enough load ItemDetailActivity.
@@ -107,7 +179,6 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
 
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.item_detail_container, fragment, StepDetailFragment.FRAGMENT_ID)
-                            .addToBackStack(null)
                             .commit();
                 } else {
                     Intent intent = ItemDetailActivity
@@ -148,4 +219,5 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     public void openDetailActivity() {
 
     }
+    */
 }

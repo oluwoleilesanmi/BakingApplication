@@ -1,13 +1,13 @@
 package com.ilesanmi.oluwole.bakingapplication.data.network;
 
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
@@ -20,7 +20,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<ArrayList<Recipe>> getRecipeApiCall() {
+    public Flowable<ArrayList<Recipe>> getRecipeApiCall() {
         return mApiCall.getRecipeApiCall();
     }
 

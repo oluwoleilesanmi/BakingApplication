@@ -1,6 +1,6 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.base;
 
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 
 import java.util.ArrayList;
 

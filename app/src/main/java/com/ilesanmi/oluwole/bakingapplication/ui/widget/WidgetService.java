@@ -7,7 +7,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ class RecipeRemoteViewsFactory implements  RemoteViewsService.RemoteViewsFactory
         mContext = context;
         bundle = intent.getBundleExtra("Bundle");
 
-        allRecipes = bundle.getParcelableArrayList("Recipe_Array_List");
+       // allRecipes = bundle.getParcelableArrayList("Recipe_Array_List");
         positionClicked = bundle.getInt("Position_Clicked", -1);
     }
 

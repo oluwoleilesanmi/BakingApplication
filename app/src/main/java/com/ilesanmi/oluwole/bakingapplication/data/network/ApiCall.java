@@ -1,11 +1,11 @@
 package com.ilesanmi.oluwole.bakingapplication.data.network;
 
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
-import com.ilesanmi.oluwole.bakingapplication.utils.rx.Constants;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -15,8 +15,8 @@ import retrofit2.http.GET;
 
 public interface ApiCall {
 
-    @GET(Constants.FEED)
-    Observable<ArrayList<Recipe>> getRecipeApiCall();
+    @GET(NetworkUtils.FEED)
+    Flowable<ArrayList<Recipe>> getRecipeApiCall();
 
     class Factory {
 
@@ -28,7 +28,7 @@ public interface ApiCall {
             okHttpClient = new OkHttpClient.Builder().addInterceptor(logging).build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
+                    .baseUrl(NetworkUtils.BASE_URL)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -1,4 +1,4 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.main;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail;
 
 import android.util.Log;
 
@@ -14,17 +14,11 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-/**
- * Created by abayomi on 28/03/2018.
- */
-
-public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
-        implements MainMvpPresenter<V> {
+public class IngredientDetailPresenter<V extends IngredientDetailMvpView> extends BasePresenter<V>
+        implements IngredientDetailMvpPresenter<V> {
 
     @Inject
-    public MainPresenter(DataManager dataManager,
-                           SchedulerProvider schedulerProvider,
-                           CompositeDisposable compositeDisposable) {
+    public IngredientDetailPresenter(DataManager dataManager, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
@@ -51,10 +45,6 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     private void handleError(Throwable error) {
         Log.i("Hello","Nigeria");
     }
-
-
-
-
 
 
 }

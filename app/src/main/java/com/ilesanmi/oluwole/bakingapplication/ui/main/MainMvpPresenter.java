@@ -10,5 +10,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 public interface MainMvpPresenter<V extends MvpView>
         extends MvpPresenter<V> {
 
-    void onViewPrepared();
+    void onViewPrepared(Boolean isInternetBound);
+
 }

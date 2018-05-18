@@ -1,4 +1,4 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail.IngredientDetail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 
 public class IngredientDetailAdapter extends BaseAdapter {
     private Context context;

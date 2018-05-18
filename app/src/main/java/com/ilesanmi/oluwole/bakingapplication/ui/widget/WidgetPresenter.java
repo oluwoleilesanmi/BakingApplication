@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BasePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 

@@ -8,13 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.SimpleIdlingResource;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.base.RecyclerViewListener;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         ButterKnife.bind(this);
 
         mPresenter.onAttach(MainActivity.this);
-        mPresenter.onViewPrepared();
+        mPresenter.onViewPrepared(true);
 
         createRecyclerView();
     }
@@ -59,22 +57,27 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void createRecyclerView() {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mRecipeAdapter);
-        mRecipeAdapter.setOnItemClickListener(new RecyclerViewListener.OnItemClickListener() {
-            //Create a recyclerView listener and then if specific view in recyclerView is clicked get the view and position
-            @Override
-            public void OnItemClick(View view, int position) {
 
-                //SharedPreference is used to store position clicked for use in widget.
-                setSharedPreference("positionClicked", position, MainActivity.this);
-
-                //Migrate the passing of position clicked to DetailActivity.class with an intent to the above sharedPreference.
-                startActivity(DetailActivity.getStartIntent(MainActivity.this, position));
-            }
-        });
+        //Create a recyclerView listener and then if specific view in recyclerView is clicked get the view and position
+//        mRecipeAdapter.setOnItemClickListener((view, position) -> {
+//
+//
+//
+//            //SharedPreference is used to store position clicked for use in widget.
+//            setSharedPreference("positionClicked", position, MainActivity.this);
+//
+//            //Migrate the passing of position clicked to DetailActivity.class with an intent to the above sharedPreference.
+//            startActivity(DetailActivity.getStartIntent(MainActivity.this));
+//        });
     }
 
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {
         mRecipeAdapter.addItems(recipeList);
+    }
+
+    @Override
+    protected void setUp() {
+
     }
 
     public static void setSharedPreference(String key, int value, Context context) {

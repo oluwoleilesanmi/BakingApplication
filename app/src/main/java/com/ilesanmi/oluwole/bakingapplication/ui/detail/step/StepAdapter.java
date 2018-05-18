@@ -1,4 +1,4 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.step;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,36 +8,34 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.network.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.IngredientAndStepViewHolder> {
+public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHolder> {
 
     private ArrayList<Recipe> mRecipeList;
     private int size = 0;
-    private int positioned= 0;
+    private int positioned = 0;
 
-    public DetailAdapter(ArrayList<Recipe> mRecipeList) {
-//        Log.i("Adapter 1", "Nigeria");
+    public StepAdapter(ArrayList<Recipe> mRecipeList) {
         this.mRecipeList = mRecipeList;
     }
 
     //Inflate the recyclerView and then
     //Pass the inflated recyclerView to the recipiesViewHolder
     @Override
-    public IngredientAndStepViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public StepViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.recipe_recycler_views;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        IngredientAndStepViewHolder viewHolder = new IngredientAndStepViewHolder(view);
+        StepViewHolder viewHolder = new StepViewHolder(view);
 
         return viewHolder;
     }
@@ -48,7 +46,7 @@ public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.Ingredi
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
 
             super.onBindViewHolder(viewHolder, position);
-            IngredientAndStepViewHolder recipiesViewHolder = (IngredientAndStepViewHolder) viewHolder;
+            StepViewHolder recipiesViewHolder = (StepViewHolder) viewHolder;
             recipiesViewHolder.bind(mRecipeList.get(positioned).getSteps().get(position).getShortDescription());
 
     }
@@ -65,12 +63,12 @@ public class DetailAdapter extends BaseRecyclerViewAdapter<DetailAdapter.Ingredi
         notifyDataSetChanged();
     }
 
-    class IngredientAndStepViewHolder extends RecyclerView.ViewHolder {
+    class StepViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.text_view)
         TextView mTextView;
 
-        public IngredientAndStepViewHolder(View itemView) {
+        public StepViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
