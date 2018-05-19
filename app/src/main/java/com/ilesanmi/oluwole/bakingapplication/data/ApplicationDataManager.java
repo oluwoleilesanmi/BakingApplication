@@ -106,11 +106,11 @@ public class ApplicationDataManager implements DataManager {
 
     @Override
     public void setPositionClickedInStepFragment(int positionClickedInStepFragment) {
-
+        mPreferenceHelper.setPositionClickedInStepFragment(positionClickedInStepFragment);
     }
 
     @Override
     public int getPositionClickedInStepFragment() {
-        return 0;
+     return mPreferenceHelper.getPositionClickedInStepFragment();
     }
 }

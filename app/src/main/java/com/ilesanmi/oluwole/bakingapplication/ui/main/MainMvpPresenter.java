@@ -11,5 +11,6 @@ public interface MainMvpPresenter<V extends MvpView>
         extends MvpPresenter<V> {
 
     void onViewPrepared(Boolean isInternetBound);
+    void onPositionPressed(int positionPressed);
 
 }

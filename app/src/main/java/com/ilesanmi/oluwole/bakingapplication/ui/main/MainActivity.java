@@ -1,11 +1,9 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.main;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -57,18 +55,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void createRecyclerView() {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mRecipeAdapter);
-
-        //Create a recyclerView listener and then if specific view in recyclerView is clicked get the view and position
-//        mRecipeAdapter.setOnItemClickListener((view, position) -> {
-//
-//
-//
-//            //SharedPreference is used to store position clicked for use in widget.
-//            setSharedPreference("positionClicked", position, MainActivity.this);
-//
-//            //Migrate the passing of position clicked to DetailActivity.class with an intent to the above sharedPreference.
-//            startActivity(DetailActivity.getStartIntent(MainActivity.this));
-//        });
+        mRecyclerView
+                .addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecipeAdapter.setOnItemClickListener((view, position) -> {
+            mPresenter.onPositionPressed(position);
+            openDetailActivity();
+        });
     }
 
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {
@@ -80,16 +72,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     }
 
-    public static void setSharedPreference(String key, int value, Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(key, value);
-        editor.apply();
-    }
-
-
-    @Override
-    public void openDetailActivity(int clickedPosition) {
+    public void openDetailActivity() {
+        startActivity(DetailActivity.getStartIntent(MainActivity.this));
     }
 
     @VisibleForTesting

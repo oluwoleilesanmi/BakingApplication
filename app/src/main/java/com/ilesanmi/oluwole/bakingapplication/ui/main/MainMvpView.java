@@ -9,5 +9,5 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
 
-    void openDetailActivity( int i);
+
 }

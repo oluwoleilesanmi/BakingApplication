@@ -38,6 +38,11 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
                 .subscribe(this::handleReturnedData, this::handleError, () -> getMvpView().hideLoading()));
     }
 
+    @Override
+    public void onPositionPressed(int positionPressed) {
+
+    }
+
     private void handleReturnedData(List<Recipe> list) {
         //view.stopLoadingIndicator();
         if (!isViewAttached()) {
