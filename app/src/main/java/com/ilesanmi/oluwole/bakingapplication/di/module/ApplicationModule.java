@@ -10,6 +10,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+
+import com.ilesanmi.oluwole.bakingapplication.data.pref.AppPreferenceHelper;
+import com.ilesanmi.oluwole.bakingapplication.data.pref.PreferenceHelper;
 import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
@@ -64,6 +67,11 @@ public class ApplicationModule {
         return new AppSchedulerProvider();
     }
 
+    @Provides
+    @Singleton
+    PreferenceHelper providePreferencesHelper(AppPreferenceHelper appPreferencesHelper) {
+        return appPreferencesHelper;
+    }
 
     @Provides
     @Singleton

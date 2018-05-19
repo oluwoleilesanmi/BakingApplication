@@ -6,15 +6,12 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import io.reactivex.Flowable;
 import android.content.Context;
+
 import com.ilesanmi.oluwole.bakingapplication.data.db.DbHelper;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.data.network.ApiHelper;
+import com.ilesanmi.oluwole.bakingapplication.data.pref.PreferenceHelper;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
-
-
-
-
-
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -24,13 +21,16 @@ public class ApplicationDataManager implements DataManager {
 
     private final Context mContext;
     private final DbHelper mDbHelper;
+    private final PreferenceHelper mPreferenceHelper;
     private final ApiHelper mApiHelper;
     List<Recipe> caches;
 
     @Inject
-    public ApplicationDataManager(@ApplicationContext Context context, DbHelper dbHelper, ApiHelper apiHelper) {
+    public ApplicationDataManager(@ApplicationContext Context context, DbHelper dbHelper, ApiHelper apiHelper,
+                                  PreferenceHelper preferenceHelper) {
         mContext = context;
         mDbHelper = dbHelper;
+        mPreferenceHelper = preferenceHelper;
         mApiHelper = apiHelper;
 
         caches = new ArrayList<>();
@@ -53,7 +53,7 @@ public class ApplicationDataManager implements DataManager {
             caches.clear();
             // Clear data in local storage
             mDbHelper.clearData();
-            // Break the list up into individual recipes and then concatenate the back.
+            // Break the list up into individual recipes and then concatenate them back.
         }).flatMap(Flowable::fromIterable).doOnNext(recipe -> {
             caches.add(recipe);
             mDbHelper.addRecipe(recipe);
@@ -72,9 +72,9 @@ public class ApplicationDataManager implements DataManager {
             } else {
                 // else return data from local storage
                 return mDbHelper.loadRecipes(false)
-                        .take(1)
+                        .take(0)
                         .flatMap(Flowable::fromIterable)
-                        .doOnNext(question -> caches.add(question))
+                        .doOnNext(recipe -> caches.add(recipe))
                         .toList()
                         .toFlowable()
                         .filter(list -> !list.isEmpty())
@@ -84,13 +84,33 @@ public class ApplicationDataManager implements DataManager {
         }
     }
 
-    public Flowable<Recipe> getQuestion(final long questionId) {
-        return Flowable.fromIterable(caches).filter(recipe -> recipe.getId() == questionId);
+    public Flowable<Recipe> getRecipe(final int recipeId) {
+        return Flowable.fromIterable(caches).filter(recipe -> recipe.getId() == recipeId);
 
     }
 
     @Override public void clearData() {
         caches.clear();
         mDbHelper.clearData();
+    }
+
+    @Override
+    public void setPositionClickedInMainActivity(int positionClickedOnMainActivity) {
+        mPreferenceHelper.setPositionClickedInMainActivity(positionClickedOnMainActivity);
+    }
+
+    @Override
+    public int getPositionClickedInMainActivity() {
+        return mPreferenceHelper.getPositionClickedInMainActivity();
+    }
+
+    @Override
+    public void setPositionClickedInStepFragment(int positionClickedInStepFragment) {
+
+    }
+
+    @Override
+    public int getPositionClickedInStepFragment() {
+        return 0;
     }
 }

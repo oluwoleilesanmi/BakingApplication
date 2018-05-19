@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         ButterKnife.bind(this);
 
         mPresenter.onAttach(MainActivity.this);
-        mPresenter.onViewPrepared(true);
+        mPresenter.onViewPrepared(false);
 
         createRecyclerView();
     }

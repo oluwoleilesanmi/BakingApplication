@@ -6,4 +6,5 @@ public interface StepMvpPresenter<V extends StepMvpView>
         extends MvpPresenter<V>  {
 
     void onViewPrepared(Boolean isInternetBound);
+
 }
