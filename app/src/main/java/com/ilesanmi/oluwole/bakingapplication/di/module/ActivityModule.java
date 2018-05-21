@@ -9,9 +9,15 @@ import android.appwidget.AppWidgetManager;
 import android.support.v7.app.AppCompatActivity;
 import io.reactivex.disposables.CompositeDisposable;
 import android.support.v7.widget.LinearLayoutManager;
+
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.di.ActivityContext;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailAdapter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailMvpView;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpView;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainAdapter;
@@ -78,6 +84,11 @@ public class ActivityModule {
     }
 
     @Provides
+    IngredientDetailAdapter provideIngredientDetailAdapter() {
+        return new IngredientDetailAdapter(mActivity, new ArrayList<>());
+    }
+
+    @Provides
     LinearLayoutManager provideLayoutManager() {
         return new LinearLayoutManager(mActivity);
     }
@@ -91,6 +102,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     StepDetailMvpPresenter<StepDetailMvpView> provideStepDetailPresenter(StepDetailPresenter<StepDetailMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    IngredientDetailMvpPresenter<IngredientDetailMvpView> provideIngredientDetailPresenter(IngredientDetailPresenter<IngredientDetailMvpView> presenter) {
         return presenter;
     }
 

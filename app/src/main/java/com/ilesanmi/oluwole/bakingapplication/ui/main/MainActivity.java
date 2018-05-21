@@ -12,6 +12,7 @@ import com.ilesanmi.oluwole.bakingapplication.SimpleIdlingResource;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
+import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         ButterKnife.bind(this);
 
         mPresenter.onAttach(MainActivity.this);
+
+
         mPresenter.onViewPrepared(false);
 
         createRecyclerView();
@@ -58,7 +61,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mRecyclerView
                 .addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecipeAdapter.setOnItemClickListener((view, position) -> {
-            mPresenter.onPositionPressed(position);
+            mPresenter.onPressed(position);
             openDetailActivity();
         });
     }

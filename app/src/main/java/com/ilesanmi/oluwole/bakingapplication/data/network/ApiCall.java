@@ -4,6 +4,7 @@ import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.OkHttpClient;
@@ -16,7 +17,7 @@ import retrofit2.http.GET;
 public interface ApiCall {
 
     @GET(NetworkUtils.FEED)
-    Flowable<ArrayList<Recipe>> getRecipeApiCall();
+    Flowable<List<Recipe>> getRecipeApiCall();
 
     class Factory {
 

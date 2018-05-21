@@ -29,7 +29,7 @@ public class IngredientDetailPresenter<V extends IngredientDetailMvpView> extend
                 .loadRecipes(isInternetBound)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(this::handleReturnedData, this::handleError, () -> getMvpView().hideLoading()));
+                .subscribe(this::handleReturnedData, this::handleError,() -> getMvpView().hideLoading()));
     }
 
     private void handleReturnedData(List<Recipe> list) {
@@ -38,7 +38,8 @@ public class IngredientDetailPresenter<V extends IngredientDetailMvpView> extend
             return;
         }
         if (list != null && !list.isEmpty()) {
-            getMvpView().updateViewInActivity((ArrayList<Recipe>) list);
+            int positionClick = getDataManager().getPositionClickedInMainActivity();
+            getMvpView().updateViewInActivity((ArrayList<Recipe>) list, positionClick);
         }
     }
 

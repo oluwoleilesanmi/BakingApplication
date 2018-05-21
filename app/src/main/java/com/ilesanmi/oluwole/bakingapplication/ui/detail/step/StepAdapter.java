@@ -46,8 +46,8 @@ public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
 
             super.onBindViewHolder(viewHolder, position);
-            StepViewHolder recipiesViewHolder = (StepViewHolder) viewHolder;
-            recipiesViewHolder.bind(mRecipeList.get(positioned).getSteps().get(position).getShortDescription());
+            StepViewHolder stepViewHolder = (StepViewHolder) viewHolder;
+            stepViewHolder.bind(mRecipeList.get(positioned).getSteps().get(position).getShortDescription());
 
     }
 
@@ -56,11 +56,15 @@ public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHol
         return size;
     }
 
-    public void addItems(ArrayList<Recipe> recipeList, int position,int size) {
+    public void addItems(ArrayList<Recipe> recipeList, int position) {
         mRecipeList.addAll(recipeList);
         this.positioned = position;
-        this.size = size;
+        this.size = getSizeOfListStepsNestedInRecipe(recipeList,position);
         notifyDataSetChanged();
+    }
+
+    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList, int position) {
+        return recipeList.get(position).getSteps().size();
     }
 
     class StepViewHolder extends RecyclerView.ViewHolder {

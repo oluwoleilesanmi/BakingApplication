@@ -15,7 +15,7 @@ public class AppDbHelper implements DbHelper{
     }
 
     @Override
-    public Flowable<List<Recipe>> loadRecipes(boolean forceRemote) {
+    public Flowable<List<Recipe>> loadRecipes(boolean internetBound) {
         //this line links the observable to its data-source (database)
         //get data
         return recipeDao.getAllRecipes();

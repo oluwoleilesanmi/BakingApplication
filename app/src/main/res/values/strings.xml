@@ -15,5 +15,6 @@
 
     <!--ViewPager-->
     <string name="step">Step</string>
-    <string name="detail">Detail</string>
+    <string name="step_detail">Detail</string>
+    <string name="ingredient_detail">IngDetail</string>
 </resources>

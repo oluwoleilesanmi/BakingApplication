@@ -24,7 +24,7 @@ public class StepDetailPresenter<V extends StepDetailMvpView> extends BasePresen
 
     @Override
     public void onViewPrepared(Boolean isInternetBound) {
-        getMvpView().showLoading();
+        //getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .loadRecipes(isInternetBound)
                 .subscribeOn(getSchedulerProvider().io())
@@ -38,11 +38,15 @@ public class StepDetailPresenter<V extends StepDetailMvpView> extends BasePresen
             return;
         }
         if (list != null && !list.isEmpty()) {
-            getMvpView().updateViewInActivity((ArrayList<Recipe>) list);
+            int positionM = getDataManager().getPositionClickedInMainActivity();
+            int positionS = getDataManager().getPositionClickedInStepFragment();
+            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionM,positionS);
+            Log.i("StepDetail","Inside the belly of the beast");
         }
+
     }
 
     private void handleError(Throwable error) {
-        Log.i("Hello","Nigeria");
+        Log.i("Hello", "Nigeria");
     }
 }

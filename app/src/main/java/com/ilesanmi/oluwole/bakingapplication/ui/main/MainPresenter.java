@@ -39,8 +39,8 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onPositionPressed(int positionPressed) {
-
+    public void onPressed(int position) {
+        getDataManager().setPositionClickedInMainActivity(position);
     }
 
     private void handleReturnedData(List<Recipe> list) {
@@ -54,7 +54,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     private void handleError(Throwable error) {
-        Log.i("Hello","Nigeria");
+        Log.i("TroubleShoot","Main Activity");
     }
 
 

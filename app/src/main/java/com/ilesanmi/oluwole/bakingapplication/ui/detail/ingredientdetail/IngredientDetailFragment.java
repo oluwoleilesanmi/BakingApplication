@@ -9,20 +9,32 @@ import android.widget.ListView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepAdapter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpView;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IngredientDetailFragment extends BaseFragment implements IngredientDetailMvpView {
-    public static final String FRAGMENT_ID = "Ingredient_Detail_Id";
+
+    public static final String FRAGMENT_INGREDIENT_ID = "Ingredient_Detail_Id";
+
+    @Inject
+    IngredientDetailMvpPresenter<IngredientDetailMvpView> mPresenter;
+
+    @Inject
+    IngredientDetailAdapter mIngredientDetailAdapter;
 
     @BindView(R.id.ingredient_list_view)
     ListView mListView;
 
-    private IngredientDetailAdapter mIngredientDetailAdapter;
 
     public static IngredientDetailFragment newInstance() {
         Bundle arguments = new Bundle();
@@ -38,19 +50,25 @@ public class IngredientDetailFragment extends BaseFragment implements Ingredient
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ingredient, container, false);
 
-        ButterKnife.bind(this, view);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            Recipe recipe = bundle.getParcelable("RECIPE");
-            mIngredientDetailAdapter= new IngredientDetailAdapter(getActivity(), recipe);
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            ButterKnife.bind(this, view);
+            mPresenter.onAttach(this);
         }
+
+        mPresenter.onViewPrepared(false);
 
         mListView.setAdapter(mIngredientDetailAdapter);
 
         return view;
     }
 
+
+    @Override
+    public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionClick) {
+        mIngredientDetailAdapter.addItems(recipeList, positionClick);
+    }
 
     @Override
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {

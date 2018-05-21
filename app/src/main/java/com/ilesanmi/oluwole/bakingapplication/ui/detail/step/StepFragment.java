@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -27,10 +28,10 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     public static final String FRAGMENT_ID = "Step_Id";
 
     @Inject
-    StepPresenter<StepMvpView> mPresenter;
+    StepMvpPresenter<StepMvpView> mPresenter;
 
     @Inject
-    StepAdapter mDetailAdapter;
+    StepAdapter mStepAdapter;
 
     @Inject
     LinearLayoutManager mLayoutManager;
@@ -38,7 +39,6 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     @BindView(R.id.detail_recycler_view)
     RecyclerView mRecyclerView;
 
-    ArrayList<Recipe> mRecipes;
     private boolean mTwoPane;
 
     public static StepFragment newInstance() {
@@ -52,10 +52,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_item_list, container, false);
-
-        ButterKnife.bind(this, view);
-        createRecyclerView();
+        View view = inflater.inflate(R.layout.fragment_step, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -63,9 +60,9 @@ public class StepFragment extends BaseFragment implements StepMvpView {
             ButterKnife.bind(this, view);
             mPresenter.onAttach(this);
         }
-        mPresenter.onViewPrepared(true);
+        createRecyclerView();
+        mPresenter.onViewPrepared(false);
 
-        //recipe.getSteps().get(clickedPosition).getVideoURL();
 
 
         return view;
@@ -74,41 +71,27 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     @OnClick(R.id.ingredients_text_view)
     void onIngredientClick(View v) {
         //if screen is large enough load fragment beside activity.
-//        if (mTwoPane) {
-//            Fragment fragment2 = IngredientDetailFragment
-//                    .newInstance(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), mRecipes));
-//
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.item_detail_container, fragment2, IngredientDetailFragment.FRAGMENT_ID)
-//                    .commit();
+//        if (!mTwoPane) {
+            ((DetailActivity)getContext()).openFragment(2);
+
 //        }
-//        //if screen not large enough load ItemDetailActivity.
-//        else {
-//            Intent intent = ItemDetailActivity
-//                    .getStartIntent(DetailActivity.this, getClickedPositionFromIntentSentFromMainActivity(), mRecipes, 0, 1);
-//
-//            startActivity(intent);
-//        }
+        //if screen not large enough load ItemDetailActivity.
 
 
     }
 
     public void createRecyclerView() {
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mDetailAdapter);
+        mRecyclerView.setAdapter(mStepAdapter);
         //Create a Recycler-view listener and then if specific view in Recycler-view is clicked get the view and position
-        mDetailAdapter.setOnItemClickListener((view, position) -> {
-//                if (mTwoPane) {
+        mStepAdapter.setOnItemClickListener((view, position) -> {
+
+            mPresenter.onPressed(position);
+            ((DetailActivity)getContext()).openFragment(1);
+
+            //                if (mTwoPane) {
 //                    Fragment fragment = setFragment(getParcelable(getClickedPositionFromIntentSentFromMainActivity(), mRecipes), position);
 //
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.item_detail_container, fragment, StepDetailFragment.FRAGMENT_ID)
-//                            .commit();
-//                } else {
-//                    Intent intent = ItemDetailActivity
-//                            .getStartIntent(DetailActivity.this, getClickedPositionFromIntentSentFromMainActivity(), mRecipes, position, 0);
-//
-//                    startActivity(intent);
 //                }
         });
     }
@@ -127,19 +110,15 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     }
 
     @Override
+    public void updateViewInActivity(ArrayList<Recipe> recipeList,int positionClick) {
+        mStepAdapter.addItems(recipeList, positionClick);
+    }
+
+    @Override
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {
-        this.mRecipes = recipeList;
-        mDetailAdapter.addItems(recipeList,
-                getClickedPositionFromIntentSentFromMainActivity(),
-                getSizeOfListStepsNestedInRecipe(recipeList));
+
     }
 
-    public int getClickedPositionFromIntentSentFromMainActivity() {
-        //     return getIntent().getIntExtra("positionClickedInMainActivity", 0);
-        return 0;
-    }
 
-    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList) {
-        return recipeList.get(getClickedPositionFromIntentSentFromMainActivity()).getSteps().size();
-    }
+
 }

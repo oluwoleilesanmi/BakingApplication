@@ -24,7 +24,7 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared(Boolean isInternetBound) {
-        getMvpView().showLoading();
+        //getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .loadRecipes(isInternetBound)
                 .subscribeOn(getSchedulerProvider().io())
@@ -33,8 +33,8 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onPositionPressed(int positionPressed) {
-
+    public void onPressed(int position) {
+        getDataManager().setPositionClickedInStepFragment(position);
     }
 
     private void handleReturnedData(List<Recipe> list) {
@@ -43,13 +43,14 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
             return;
         }
         if (list != null && !list.isEmpty()) {
-            getMvpView().updateViewInActivity((ArrayList<Recipe>) list);
+            int positionClick = getDataManager().getPositionClickedInMainActivity();
+            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionClick);
         }
 
     }
 
     private void handleError(Throwable error) {
-        Log.i("Hello","Nigeria");
+        Log.i("Hello", "Nigeria");
     }
 
 

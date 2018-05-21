@@ -47,14 +47,15 @@ import butterknife.ButterKnife;
 
 public class StepDetailFragment extends BaseFragment implements StepDetailMvpView {
 
-    public static final String FRAGMENT_ID = "Step_Detail_Id";
+    public static final String FRAGMENT_STEP_DETAIL_ID = "Step_Detail_Id";
 
-
+    int positionM = 0;
+    int positionS = 0;
     @BindView(R.id.exo_player_view)
     SimpleExoPlayerView mExoPlayerView;
 
     @Inject
-    StepDetailPresenter<StepDetailMvpView> mPresenter;
+    StepDetailMvpPresenter<StepDetailMvpView> mPresenter;
 
     private SimpleExoPlayer player;
 
@@ -71,14 +72,16 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         return fragment;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_step, container, false);
-
-        ButterKnife.bind(this, view);
+        View view = inflater.inflate(R.layout.fragment_stepdetail, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -86,37 +89,10 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
             ButterKnife.bind(this, view);
             mPresenter.onAttach(this);
         }
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            Recipe recipe = bundle.getParcelable("RECIPE");
-            int clickedPosition = bundle.getInt("POSITION_CLICKED");
-
-            setUri(recipe.getSteps().get(clickedPosition).getVideoURL());
-        }
-
-
+        mPresenter.onViewPrepared(false);
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-
-        //        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
-//            // Expand video, hide description, hide system UI
-//            expandVideoView(exoPlayerView);
-//            setViewVisibility(descriptionCard, false);
-//            hideSystemUI();
-//        }
-        if (player == null) {
-            initializePlayer();
-            Log.i("ExoPlayerActivity", "InitializePlayer");
-        }
-
-    }
 
     @Override
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {
@@ -137,7 +113,7 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
         player.addListener(this);
 
-        Uri uri = Uri.parse(getUri());
+        Uri uri = Uri.parse(uriString);
         DataSource.Factory mediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
                 Util.getUserAgent(getContext(), "BakingApplication"), defaultBandwidthMeter);
 
@@ -150,14 +126,22 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         player.setPlayWhenReady(playWhenReady);
     }
 
-
-    public void setUri(String url) {
-        uriString = url;
+    @Override
+    public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS) {
+        Log.i("zola", Integer.toString(positionM));
+        ArrayList<Recipe.Step>  x =(ArrayList<Recipe.Step>) recipeList.get(positionM).getSteps();
+        uriString = x.get(positionS).getVideoURL();
+        this.positionM = positionM;
+        this.positionS = positionS;
     }
 
-    private String getUri() {
-        return uriString;
+    @Override
+    public void updateFragment() {
+        mPresenter.onViewPrepared(false);
+        Log.i("UpdateFragment", Integer.toString(positionS));
+        Log.i("UpdateFragment", Integer.toString(positionM));
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -191,7 +175,7 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         super.onResume();
 
     }
-
+//used to make ui dissapear
     @SuppressLint("InlinedApi")
     private void hideSystemUi() {
         mExoPlayerView.setSystemUiVisibility(
@@ -246,22 +230,6 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
     }
 
-    //if screen orientation is changed then restore the state of the exoplayer
-    //stop multiple audio streams from being downloaded and played at the same time
-    //stop multiple audio streams from being played when back button pressed
 
-    //you dont have to write all if's the above if has been written within lifecycle
 
-    // if relating to views and displays should be carefully considered to be part of the lifecycle
 }
-
-//View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-
-
-//
-//        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//        | View.SYSTEM_UI_FLAG_FULLSCREEN
-//        | View.SYSTEM_UI_FLAG_IMMERSIVE

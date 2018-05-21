@@ -19,32 +19,28 @@ import com.ilesanmi.oluwole.bakingapplication.utils.IngredientsConverter;
 public class Recipe {
 
     @SerializedName("id")
-    @Expose
     @PrimaryKey
     private Integer id;
 
     @SerializedName("name")
-    @Expose
     private String name;
+
     //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("ingredients")
-    @Expose
     @ColumnInfo(name = "ingredients_")
     @TypeConverters(IngredientsConverter.class)
     private List<Recipe.Ingredient> ingredients = new ArrayList<>();
+
     //Always instantiate with a concrete object failure to do so will lead to NullPointer exception.
     @SerializedName("steps")
-    @Expose
     @ColumnInfo(name = "steps_")
     @TypeConverters(StepsConverter.class)
     private List<Recipe.Step> steps = new ArrayList<>();
 
     @SerializedName("servings")
-    @Expose
     private Integer servings;
 
     @SerializedName("image")
-    @Expose
     private String image;
 
     public Integer getId() {
@@ -99,15 +95,12 @@ public class Recipe {
 
     public static class Ingredient {
         @SerializedName("quantity")
-        @Expose
         private Double quantity;
 
         @SerializedName("measure")
-        @Expose
         private String measure;
 
         @SerializedName("ingredient")
-        @Expose
         private String ingredient;
 
         public Double getQuantity() {
@@ -138,23 +131,18 @@ public class Recipe {
 
     public static class Step {
         @SerializedName("id")
-        @Expose
         private Integer id;
 
         @SerializedName("shortDescription")
-        @Expose
         private String shortDescription;
 
         @SerializedName("description")
-        @Expose
         private String description;
 
         @SerializedName("videoURL")
-        @Expose
         private String videoURL;
 
         @SerializedName("thumbnailURL")
-        @Expose
         private String thumbnailURL;
 
         public Integer getId() {

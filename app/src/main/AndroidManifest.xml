@@ -2,6 +2,7 @@
 <manifest package="com.ilesanmi.oluwole.bakingapplication"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- PayAttention to android:name=".MvpApplication" below it is included because of Dagger -->

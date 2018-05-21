@@ -37,7 +37,7 @@ public class ApplicationDataManager implements DataManager {
     }
 
     @Override
-    public Flowable<ArrayList<Recipe>> getRecipeApiCall() {
+    public Flowable<List<Recipe>> getRecipeApiCall() {
         return mApiHelper.getRecipeApiCall();
     }
 
@@ -48,7 +48,7 @@ public class ApplicationDataManager implements DataManager {
 
 //Database uses list internet uses arraylist
    public Flowable<List<Recipe>> refreshData() {
-        return mApiHelper.getRecipeApiCall().doOnNext(list -> {
+        return getRecipeApiCall().doOnNext(list -> {
             // Clear cache
             caches.clear();
             // Clear data in local storage
@@ -56,7 +56,7 @@ public class ApplicationDataManager implements DataManager {
             // Break the list up into individual recipes and then concatenate them back.
         }).flatMap(Flowable::fromIterable).doOnNext(recipe -> {
             caches.add(recipe);
-            mDbHelper.addRecipe(recipe);
+            addRecipe(recipe);
         }).toList().toFlowable();
    }
 
@@ -72,7 +72,7 @@ public class ApplicationDataManager implements DataManager {
             } else {
                 // else return data from local storage
                 return mDbHelper.loadRecipes(false)
-                        .take(0)
+                        .take(1)
                         .flatMap(Flowable::fromIterable)
                         .doOnNext(recipe -> caches.add(recipe))
                         .toList()
