@@ -173,6 +173,8 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     @Override
     public void onResume() {
         super.onResume();
+        updateFragment();
+        initializePlayer();
 
     }
 //used to make ui dissapear

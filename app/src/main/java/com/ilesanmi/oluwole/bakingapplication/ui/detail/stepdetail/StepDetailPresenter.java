@@ -30,7 +30,7 @@ public class StepDetailPresenter<V extends StepDetailMvpView> extends BasePresen
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(this::handleReturnedData, this::handleError, () -> getMvpView().hideLoading()));
-    }
+   }
 
     private void handleReturnedData(List<Recipe> list) {
         //view.stopLoadingIndicator();

@@ -61,7 +61,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
-        mPagerAdapter.setCount(2);
+        mPagerAdapter.setCount(3);
 
         mViewPager.setAdapter(mPagerAdapter);
 

@@ -42,7 +42,7 @@ public class DetailPagerAdapter extends FragmentStatePagerAdapter {
             StepDetailFragment f = (StepDetailFragment) object;
 
             f.setUserVisibleHint(true);
-            f.updateFragment();
+            f.onResume();
 
         }
 
