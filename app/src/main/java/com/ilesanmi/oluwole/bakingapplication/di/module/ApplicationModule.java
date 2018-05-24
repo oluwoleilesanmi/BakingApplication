@@ -13,7 +13,10 @@ import android.content.Context;
 
 import com.ilesanmi.oluwole.bakingapplication.data.pref.AppPreferenceHelper;
 import com.ilesanmi.oluwole.bakingapplication.data.pref.PreferenceHelper;
+import com.ilesanmi.oluwole.bakingapplication.di.PerService;
 import com.ilesanmi.oluwole.bakingapplication.di.PreferenceInfo;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetServicePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.AppConstants;
 import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
 
@@ -74,6 +77,8 @@ public class ApplicationModule {
     PreferenceHelper providePreferencesHelper(AppPreferenceHelper appPreferencesHelper) {
         return appPreferencesHelper;
     }
+
+
 
     @Provides
     @PreferenceInfo

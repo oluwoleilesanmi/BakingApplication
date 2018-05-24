@@ -8,6 +8,8 @@ import com.ilesanmi.oluwole.bakingapplication.MvpApplication;
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
 import com.ilesanmi.oluwole.bakingapplication.di.module.ApplicationModule;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetService;
+
 
 /**
  * Created by abayomi on 28/03/2018.
@@ -18,6 +20,7 @@ import com.ilesanmi.oluwole.bakingapplication.di.module.ApplicationModule;
 public interface ApplicationComponent {
 
     void inject(MvpApplication app);
+    //void inject(WidgetService service);
 
     @ApplicationContext
     Context context();

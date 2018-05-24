@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ApplicationComponent;
+
 import com.ilesanmi.oluwole.bakingapplication.di.components.DaggerApplicationComponent;
 import com.ilesanmi.oluwole.bakingapplication.di.module.ApplicationModule;
 

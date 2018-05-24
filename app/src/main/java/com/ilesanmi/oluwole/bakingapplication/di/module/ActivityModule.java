@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import io.reactivex.disposables.CompositeDisposable;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.di.ActivityContext;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
@@ -27,9 +26,9 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpView;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepPresenter;
-import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetMvpPresenter;
-import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetMvpView;
-import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetMvpPresenter;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetService;
+import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetServicePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.AppSchedulerProvider;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailMvpPresenter;
@@ -117,11 +116,7 @@ public class ActivityModule {
         return presenter;
     }
 
-    @Provides
-    @PerActivity
-    WidgetMvpPresenter<WidgetMvpView> provideWidgetPresenter(WidgetPresenter<WidgetMvpView> presenter) {
-        return presenter;
-    }
+
 
     @Provides
     AppWidgetManager provideAppWidgetManager(@ApplicationContext Context context) {

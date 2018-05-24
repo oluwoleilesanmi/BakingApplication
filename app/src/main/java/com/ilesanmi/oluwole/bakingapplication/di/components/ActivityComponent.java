@@ -5,7 +5,6 @@ import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainActivity;
 import com.ilesanmi.oluwole.bakingapplication.di.module.ActivityModule;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.DetailActivity;
-import com.ilesanmi.oluwole.bakingapplication.ui.widget.WidgetActivity;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailFragment;
@@ -27,7 +26,7 @@ public interface ActivityComponent {
 
     void inject(DetailActivity activity);
 
-    void inject(WidgetActivity activity);
+    //void inject(WidgetActivity activity);
 
     void inject(StepFragment fragment);
 

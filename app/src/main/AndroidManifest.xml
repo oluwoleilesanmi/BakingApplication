@@ -2,7 +2,7 @@
 <manifest package="com.ilesanmi.oluwole.bakingapplication"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- PayAttention to android:name=".MvpApplication" below it is included because of Dagger -->
@@ -26,35 +26,21 @@
             android:name=".ui.detail.DetailActivity"
             android:parentActivityName=".ui.main.MainActivity"/>
 
-        <!--Activity is created because of the master detail flow-->
-        <activity android:name=".ui.detail.LayoutActivity.ItemDetailActivity"
-                  android:parentActivityName=".ui.detail.DetailActivity"/>
-
-
         <!-- BroadcastReceiver(BakingWidgetProvider) for widget -->
         <receiver android:name=".ui.widget.BakingWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/baking_app_widget_info"/>
         </receiver>
 
         <!-- Configuration Activity(WidgetActivity.class) for widget -->
-        <activity
-            android:name=".ui.widget.WidgetActivity"
-            android:label="@string/title_activity_widget"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-            </intent-filter>
-        </activity>
 
         <!-- Binds an Adapter(WidgetService.class) to ListView(widget_list_view) of widget -->
         <service
-            android:name=".ui.widget.WidgetService"
+            android:name=".ui.service.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
 
