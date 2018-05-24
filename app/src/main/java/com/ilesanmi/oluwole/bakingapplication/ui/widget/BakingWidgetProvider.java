@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetService;
 
 
 /**
@@ -15,18 +14,18 @@ import com.ilesanmi.oluwole.bakingapplication.ui.service.WidgetService;
  */
 public class BakingWidgetProvider extends AppWidgetProvider {
 
-
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
         Intent intent = new Intent(context, WidgetService.class);
-
-
         views.setRemoteAdapter(R.id.widget_list_view, intent);
-    //    views.setTextViewText(R.id.widget_baking_text, getRecipeName(recipes, positionClicked));
+        //views.setTextViewText(R.id.widget_baking_text, getRecipeName(recipes, positionClicked));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
+
+        //Refresh the adapter
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_list_view);
     }
 
 
@@ -38,8 +37,6 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         //There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context,appWidgetManager,appWidgetId);
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_list_view);
-
         }
 
     }

@@ -1,26 +1,24 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.service;
+package com.ilesanmi.oluwole.bakingapplication.ui.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.google.gson.Gson;
 import com.ilesanmi.oluwole.bakingapplication.R;
+import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
+import com.ilesanmi.oluwole.bakingapplication.utils.AppConstants;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.AsyTask;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class WidgetService extends RemoteViewsService  {
+public class WidgetService extends RemoteViewsService {
 
 
     @Override
@@ -30,47 +28,15 @@ public class WidgetService extends RemoteViewsService  {
 }
 
 class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-    private static final String TAG = "SyncService";
 
-    private Context mContext;
-    private int positionClicked = 0;
-    private ArrayList<Recipe> allRecipes = new ArrayList<>();
+    private Context context;
+    private int positionM = 0;
     private Recipe selectedRecipe;
-    private Bundle bundle;
-
+    private ArrayList<Recipe> recipes = new ArrayList<>();
 
     public RecipeRemoteViewsFactory(Context context, Intent intent) {
-        mContext = context;
-
-
-
+        this.context = context;
     }
-
-
-//    @SuppressLint("StaticFieldLeak")
-//    @Override
-//    public void onCreate() {
-//        new AsyncTask<Void, Void, String>() {
-//            @Override
-//            protected String doInBackground(Void... voids) {
-//                String bakingAppJson = "";
-//                try {
-//                    bakingAppJson = NetworkUtils.getResponseFromHttpUrl(NetworkUtils.buildBakingAppUrl());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                return bakingAppJson;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(String resultJson) {
-//                ArrayList<Recipe> r = (ArrayList<Recipe>) AsyTask.processResult(resultJson);
-//                Log.i("cee",Integer.toString(r.size()));
-//                allRecipes = (ArrayList<Recipe>) AsyTask.processResult(resultJson);
-//                Log.i("cee",allRecipes.get(1).getName());
-//                Log.i("cee",Integer.toString(r.size()));
-//            }
-//        }.execute();
 
 
     @Override
@@ -87,7 +53,10 @@ class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        allRecipes = (ArrayList<Recipe>) AsyTask.processResult(bakingAppJson);
+
+        positionM = context.getSharedPreferences(AppConstants.SHAREDPREF_NAME,Context.MODE_PRIVATE)
+                .getInt("PREF_KEY_ACTIVITY_MAIN_POSITION_CLICKED",0);
+        recipes = (ArrayList<Recipe>) AsyTask.processResult(bakingAppJson);
 
     }
 
@@ -99,9 +68,9 @@ class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
     @Override
     public int getCount() {
 
-            if (allRecipes != null || allRecipes.size() != 0) {
-                selectedRecipe = allRecipes.get(1);
-            }
+        if (recipes != null || recipes.size() != 0) {
+            selectedRecipe = recipes.get(positionM);
+        }
 
         if (selectedRecipe.getIngredients() == null) return 0;
         return selectedRecipe.getIngredients().size();
@@ -112,8 +81,9 @@ class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
         if (selectedRecipe.getIngredients() == null || selectedRecipe.getIngredients().size() == 0) {
             return null;
         }
+
         Recipe.Ingredient ingredient = selectedRecipe.getIngredients().get(i);
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
         views.setTextViewText(R.id.tv_ingredient_widget, ingredient.getIngredient());
         //views.setTextViewText(R.id.tv_quantity_widget, ingredient.getQuantity() + " " + ingredient.getMeasure());
         return views;
