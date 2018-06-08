@@ -16,6 +16,6 @@ public interface MvpView {
 
     boolean isNetworkConnected();
 
-    void updateViewInActivity(ArrayList<Recipe> recipeList);
+
 
 }

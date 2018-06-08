@@ -25,22 +25,13 @@ public abstract class BaseRecyclerViewAdapter <V extends RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         if (itemClickListener != null) {
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View view) {
-                    itemClickListener.OnItemClick(view, i);
-                }
-            });
+            viewHolder.itemView.setOnClickListener(view ->
+                    itemClickListener.OnItemClick(view, i));
         }
         if (itemLongClickListener != null) {
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
-
-                @Override
-                public boolean onLongClick(View view) {
-                    itemLongClickListener.OnItemLongClick(view, i);
-                    return true;
-                }
+            viewHolder.itemView.setOnLongClickListener(view -> {
+                itemLongClickListener.OnItemLongClick(view, i);
+                return true;
             });
         }
     }

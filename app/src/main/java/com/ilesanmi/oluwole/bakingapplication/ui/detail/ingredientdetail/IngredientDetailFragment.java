@@ -11,9 +11,6 @@ import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepAdapter;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpPresenter;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpView;
 
 import java.util.ArrayList;
 
@@ -48,7 +45,7 @@ public class IngredientDetailFragment extends BaseFragment implements Ingredient
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ingredient, container, false);
+        View view = inflater.inflate(R.layout.fragment_ingredientdetail, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -70,8 +67,5 @@ public class IngredientDetailFragment extends BaseFragment implements Ingredient
         mIngredientDetailAdapter.addItems(recipeList, positionClick);
     }
 
-    @Override
-    public void updateViewInActivity(ArrayList<Recipe> recipeList) {
 
-    }
 }

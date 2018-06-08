@@ -113,4 +113,14 @@ public class ApplicationDataManager implements DataManager {
     public int getPositionClickedInStepFragment() {
      return mPreferenceHelper.getPositionClickedInStepFragment();
     }
+
+    @Override
+    public void setIngredientClickInStepFragment(Boolean flag) {
+        mPreferenceHelper.setIngredientClickInStepFragment(flag);
+    }
+
+    @Override
+    public Boolean getIngredientClickInStepFragment() {
+       return mPreferenceHelper.getIngredientClickInStepFragment();
+    }
 }

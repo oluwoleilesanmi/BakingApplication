@@ -6,5 +6,6 @@ public interface StepMvpPresenter<V extends StepMvpView>
         extends MvpPresenter<V>  {
 
     void onViewPrepared(Boolean isInternetBound);
-    void onPressed(int position);
+    void stepPressed(int position);
+    void ingredientIsPressed(Boolean flag);
 }

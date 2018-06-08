@@ -2,13 +2,10 @@ package com.ilesanmi.oluwole.bakingapplication.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.utils.AppConstants;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
@@ -83,7 +80,7 @@ class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
         }
 
         Recipe.Ingredient ingredient = selectedRecipe.getIngredients().get(i);
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget_list);
         views.setTextViewText(R.id.tv_ingredient_widget, ingredient.getIngredient());
         //views.setTextViewText(R.id.tv_quantity_widget, ingredient.getQuantity() + " " + ingredient.getMeasure());
         return views;

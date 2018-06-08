@@ -34,7 +34,7 @@ public class MainAdapter extends BaseRecyclerViewAdapter<MainAdapter.RecipiesVie
     @Override
     public RecipiesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.recipe_recycler_views;
+        int layoutIdForListItem = R.layout.recipe_recycler_list;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 

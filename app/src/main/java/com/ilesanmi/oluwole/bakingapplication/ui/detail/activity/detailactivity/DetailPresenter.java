@@ -1,7 +1,6 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.activity.detailactivity;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
-import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BasePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 
@@ -23,5 +22,12 @@ public class DetailPresenter<V extends DetailMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    public void isIngredientClickedInStep() {
+        Boolean ingredientClick = getDataManager().getIngredientClickInStepFragment();
+        getMvpView().openFragment(ingredientClick);
+    }
 
+    public void resetIngredientClickedBooleanPref(Boolean flag) {
+        getDataManager().setIngredientClickInStepFragment(flag);
+    }
 }

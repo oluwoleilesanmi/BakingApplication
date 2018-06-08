@@ -1,22 +1,28 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import java.util.ArrayList;
+import javax.inject.Inject;
+import butterknife.BindView;
+import android.view.ViewGroup;
+import butterknife.ButterKnife;
+import android.view.LayoutInflater;
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.google.android.exoplayer2.util.Util;
+import com.ilesanmi.oluwole.bakingapplication.R;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -27,30 +33,17 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
-import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
-
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by abayomi on 19/03/2018.
  */
 
-public class StepDetailFragment extends BaseFragment implements StepDetailMvpView {
+public class
+StepDetailFragment extends BaseFragment implements StepDetailMvpView {
 
-    public static final String FRAGMENT_STEP_DETAIL_ID = "Step_Detail_Id";
-
-    int positionM = 0;
-    int positionS = 0;
     @BindView(R.id.exo_player_view)
     SimpleExoPlayerView mExoPlayerView;
 
@@ -58,23 +51,21 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     StepDetailMvpPresenter<StepDetailMvpView> mPresenter;
 
     private SimpleExoPlayer player;
-
-    private String uriString = " ";
-
+    private String videoUrl = " ";
     boolean playWhenReady = true;
     int playbackPosition = 0;
     int currentWindow = 0;
 
-    public static StepDetailFragment newInstance() {
+    public static StepDetailFragment newInstance(String description, String videoUrl,
+                                                           String imageUrl) {
+
         Bundle arguments = new Bundle();
+        arguments.putString("description", description);
+        arguments.putString("video", videoUrl);
+        arguments.putString("image", imageUrl);
         StepDetailFragment fragment = new StepDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Nullable
@@ -89,15 +80,13 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
             ButterKnife.bind(this, view);
             mPresenter.onAttach(this);
         }
-        mPresenter.onViewPrepared(false);
+        videoUrl = getArguments().getString("video");
+        initializePlayer();
+
         return view;
     }
 
 
-    @Override
-    public void updateViewInActivity(ArrayList<Recipe> recipeList) {
-
-    }
 
     private void initializePlayer() {
 
@@ -113,7 +102,7 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
         player.addListener(this);
 
-        Uri uri = Uri.parse(uriString);
+        Uri uri = Uri.parse(videoUrl);
         DataSource.Factory mediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
                 Util.getUserAgent(getContext(), "BakingApplication"), defaultBandwidthMeter);
 
@@ -124,29 +113,6 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
         player.prepare(mediaSource, true, false);
         player.setPlayWhenReady(playWhenReady);
-    }
-
-    @Override
-    public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS) {
-        Log.i("zola", Integer.toString(positionM));
-        ArrayList<Recipe.Step>  x =(ArrayList<Recipe.Step>) recipeList.get(positionM).getSteps();
-        uriString = x.get(positionS).getVideoURL();
-        this.positionM = positionM;
-        this.positionS = positionS;
-    }
-
-    @Override
-    public void updateFragment() {
-        mPresenter.onViewPrepared(false);
-        Log.i("UpdateFragment", Integer.toString(positionS));
-        Log.i("UpdateFragment", Integer.toString(positionM));
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        initializePlayer();
-
     }
 
     @Override
@@ -170,13 +136,7 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateFragment();
-        initializePlayer();
 
-    }
 //used to make ui dissapear
     @SuppressLint("InlinedApi")
     private void hideSystemUi() {

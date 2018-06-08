@@ -30,7 +30,7 @@ public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHol
     @Override
     public StepViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.recipe_recycler_views;
+        int layoutIdForListItem = R.layout.recipe_recycler_list;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 

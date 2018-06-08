@@ -60,7 +60,7 @@ public class IngredientDetailAdapter extends BaseAdapter {
 
         if (convertView == null) {
             // If convertView is null then inflate the appropriate layout file
-            convertView = LayoutInflater.from(context).inflate(R.layout.ingredient_detail_content, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.ingredient_detail_list, parent, false);
         }
         TextView ingredientTextView = convertView.findViewById(R.id.tv_item_ingredient);
         TextView quantityTextView = convertView.findViewById(R.id.tv_item_quantity);

@@ -8,7 +8,5 @@ import java.util.ArrayList;
 
 public interface StepDetailMvpView extends MvpView, ExoPlayer.EventListener {
 
-    void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS);
 
-    void updateFragment();
 }

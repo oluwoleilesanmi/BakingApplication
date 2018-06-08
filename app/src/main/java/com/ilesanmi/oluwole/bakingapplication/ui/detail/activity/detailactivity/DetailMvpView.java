@@ -1,4 +1,4 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.activity.detailactivity;
 
 import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 
@@ -8,6 +8,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 
 public interface DetailMvpView extends MvpView {
 
-    void openDetailActivity();
+    void openFragment(Boolean ingredientClick);
 
 }

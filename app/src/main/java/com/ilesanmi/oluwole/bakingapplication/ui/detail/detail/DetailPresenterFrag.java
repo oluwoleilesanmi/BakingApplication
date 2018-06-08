@@ -1,4 +1,5 @@
-package com.ilesanmi.oluwole.bakingapplication.ui.detail.step;
+package com.ilesanmi.oluwole.bakingapplication.ui.detail.detail;
+
 
 import android.util.Log;
 
@@ -14,11 +15,11 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
-        implements StepMvpPresenter<V> {
+public class DetailPresenterFrag<V extends DetailMvpViewFrag> extends BasePresenter<V>
+        implements DetailMvpPresenterFrag<V>{
 
     @Inject
-    public StepPresenter(DataManager dataManager, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
+    public DetailPresenterFrag(DataManager dataManager, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
@@ -29,28 +30,19 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
                 .loadRecipes(isInternetBound)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(this::handleReturnedData, this::handleError, () -> getMvpView().hideLoading()));
+                .subscribe(this::handleReturnedData, this::handleError));
     }
-
-    @Override
-    public void stepPressed(int position) {
-        getDataManager().setPositionClickedInStepFragment(position);
-    }
-
-    @Override
-    public void ingredientIsPressed(Boolean flag) {
-        getDataManager().setIngredientClickInStepFragment(flag);
-    }
-
 
     private void handleReturnedData(List<Recipe> list) {
         //view.stopLoadingIndicator();
-        if (!isViewAttached()) {
-            return;
-        }
+//        if (!isViewAttached()) {
+//            return;
+//        }
         if (list != null && !list.isEmpty()) {
-            int positionClick = getDataManager().getPositionClickedInMainActivity();
-            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionClick);
+            int positionM = getDataManager().getPositionClickedInMainActivity();
+            int positionS = getDataManager().getPositionClickedInStepFragment();
+            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionM,positionS);
+           // Log.i("StepDetail","Inside the belly of the beastsss");
         }
 
     }
@@ -58,6 +50,4 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
     private void handleError(Throwable error) {
         Log.i("Hello", "Nigeria");
     }
-
-
 }

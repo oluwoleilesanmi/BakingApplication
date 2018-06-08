@@ -9,4 +9,7 @@ public interface PreferenceHelper {
 
     void setPositionClickedInStepFragment(int positionClickedInStepFragment);
     int getPositionClickedInStepFragment();
+
+    void setIngredientClickInStepFragment(Boolean flag);
+    Boolean getIngredientClickInStepFragment();
 }

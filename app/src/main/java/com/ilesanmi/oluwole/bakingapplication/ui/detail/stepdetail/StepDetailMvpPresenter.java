@@ -5,5 +5,4 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpPresenter;
 public interface StepDetailMvpPresenter<V extends StepDetailMvpView>
         extends MvpPresenter<V>  {
 
-    void onViewPrepared(Boolean isInternetBound);
 }

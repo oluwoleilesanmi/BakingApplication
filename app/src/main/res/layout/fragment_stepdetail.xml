@@ -10,16 +10,5 @@
         android:layout_height="300dp">
 
     </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
-<!--TODO CREATE A BOX UNDERNEATH THE EXOPLAYER-->
-    <!--<FrameLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/app_name"-->
-            <!--android:textAlignment="center"/>-->
-
-    <!--</FrameLayout>-->
 </RelativeLayout>
