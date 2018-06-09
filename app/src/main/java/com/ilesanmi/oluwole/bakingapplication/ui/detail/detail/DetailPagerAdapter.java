@@ -1,16 +1,14 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail.detail;
 
-import android.support.annotation.NonNull;
+import java.util.ArrayList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
 
-import java.util.ArrayList;
+
 
 
 public class DetailPagerAdapter extends FragmentPagerAdapter {
@@ -49,5 +47,10 @@ public class DetailPagerAdapter extends FragmentPagerAdapter {
 
     public void setCount(int count) {
         mTabCount = count;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return recipes.get(positionM).getSteps().get(positionS).getDescription();
     }
 }

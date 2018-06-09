@@ -14,22 +14,31 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.Ingredi
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
+import butterknife.BindInt;
+import butterknife.ButterKnife;
+
 /**
  * Created by abayomi on 19/03/2018.
  */
 
 public class DetailActivity extends BaseActivity implements DetailMvpView {
 
+
+    DetailFragment detailFragment;
+    IngredientDetailFragment ingredientDetailFragment;
+
     @Inject
     DetailMvpPresenter<DetailMvpView> mPresenter;
 
     boolean isIngredientClicked = false;
 
-    IngredientDetailFragment ingredientDetailFragment;
-    DetailFragment detailFragment;
     boolean questionIsIngredientClicked;
 
     int orientationChanged = 0;
+
+    @BindInt(R.integer.orientation)
+    int defaultOrientation;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -41,15 +50,20 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         getActivityComponent().inject(this);
+        ButterKnife.bind(this);
         mPresenter.onAttach(DetailActivity.this);
 
         if (savedInstanceState != null) {
             questionIsIngredientClicked = savedInstanceState.getBoolean("IsIngredientClicked");
             orientationChanged = savedInstanceState.getInt("OrientationChanged");
+            defaultOrientation = savedInstanceState.getInt("DefaultOrientation");
         }
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        int currentOrientation = getResources().getConfiguration().orientation;
+        //int orientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE && defaultOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            ++orientationChanged;
+        }else if(currentOrientation == Configuration.ORIENTATION_PORTRAIT && defaultOrientation == Configuration.ORIENTATION_LANDSCAPE){
             ++orientationChanged;
         }
 
@@ -86,6 +100,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         super.onSaveInstanceState(outState);
         outState.putBoolean("IsIngredientClicked", questionIsIngredientClicked);
         outState.putInt("OrientationChanged", orientationChanged);
+        outState.putInt("DefaultOrientation",defaultOrientation);
     }
 
     @Override

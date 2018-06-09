@@ -42,9 +42,6 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
     @BindBool(R.bool.m_pane_mode)
     boolean mTwoPane;
 
@@ -73,8 +70,6 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
         }
 
         mPresenter.onViewPrepared(false);
-
-
 
         return view;
     }
