@@ -14,8 +14,8 @@ import com.ilesanmi.oluwole.bakingapplication.R;
  */
 public class BakingWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
         Intent intent = new Intent(context, WidgetService.class);

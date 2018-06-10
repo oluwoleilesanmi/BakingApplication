@@ -20,9 +20,9 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     private V mMvpView;
 
     @Inject
-    public BasePresenter(DataManager dataManager,
-                         SchedulerProvider schedulerProvider,
-                         CompositeDisposable compositeDisposable) {
+    protected BasePresenter(DataManager dataManager,
+                            SchedulerProvider schedulerProvider,
+                            CompositeDisposable compositeDisposable) {
 
         this.mDataManager = dataManager;
         this.mSchedulerProvider = schedulerProvider;
@@ -37,23 +37,23 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     @Override
     public void onDetach() { mMvpView = null; }
 
-    public boolean isViewAttached() {
+    protected boolean isViewAttached() {
         return mMvpView != null;
     }
 
-    public DataManager getDataManager() {
+    protected DataManager getDataManager() {
         return mDataManager;
     }
 
-    public SchedulerProvider getSchedulerProvider() {
+    protected SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;
     }
 
-    public CompositeDisposable getCompositeDisposable() {
+    protected CompositeDisposable getCompositeDisposable() {
         return mCompositeDisposable;
     }
 
-    public V getMvpView() {
+    protected V getMvpView() {
         return mMvpView;
     }
 }

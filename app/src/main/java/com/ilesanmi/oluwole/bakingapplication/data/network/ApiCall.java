@@ -3,7 +3,6 @@ package com.ilesanmi.oluwole.bakingapplication.data.network;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;

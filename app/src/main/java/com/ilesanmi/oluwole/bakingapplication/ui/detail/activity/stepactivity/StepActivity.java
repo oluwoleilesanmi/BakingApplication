@@ -36,10 +36,7 @@ public class StepActivity extends BaseActivity implements StepMvpView {
 
     }
 
-    @Override
-    protected void setUp() {
 
-    }
 
 
 }

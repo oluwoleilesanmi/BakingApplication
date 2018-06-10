@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 
 import android.view.LayoutInflater;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
@@ -56,9 +55,9 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     @BindBool(R.bool.m_pane_mode)
     boolean mTwoPane;
 
-    String description;
-    String videoUrl;
-    String imageUrl;
+    private String description;
+    private String videoUrl;
+    private String imageUrl;
 
     public static StepFragment newInstance() {
         Bundle arguments = new Bundle();
@@ -101,7 +100,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
         }
     }
 
-    public void createRecyclerView() {
+    private void createRecyclerView() {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mStepAdapter);
         //Create a Recycler-view listener and then if specific view in Recycler-view is clicked get the view and position
@@ -131,7 +130,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     }
 
 
-    public void replaceStepDetailInMultiPane() {
+    private void replaceStepDetailInMultiPane() {
 
         Fragment stepDetailFragment = StepDetailFragment.newInstance(description,videoUrl,imageUrl);
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -141,7 +140,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
 
     }
 
-    public void addIngredientDetailInMultiPane() {
+    private void addIngredientDetailInMultiPane() {
 
         Fragment ingredientDetailFragment = new IngredientDetailFragment();
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -151,7 +150,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
 
     }
 
-    public void replaceIngredientDetailInMultiPane() {
+    private void replaceIngredientDetailInMultiPane() {
 
         Fragment ingredientDetailFragment = new IngredientDetailFragment();
         FragmentManager fragmentManager = getChildFragmentManager();

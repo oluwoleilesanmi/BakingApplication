@@ -69,10 +69,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mRecipeAdapter.addItems(recipeList);
     }
 
-    @Override
-    protected void setUp() {
-
-    }
+//    @Override
+//    protected void setUp() {
+//
+//    }
 
     public void openStepActivity() {
         startActivity(StepActivity.getStartIntent(MainActivity.this));

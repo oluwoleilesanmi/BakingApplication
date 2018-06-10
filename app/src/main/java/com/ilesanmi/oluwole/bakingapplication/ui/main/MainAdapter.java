@@ -69,7 +69,7 @@ public class MainAdapter extends BaseRecyclerViewAdapter<MainAdapter.RecipiesVie
 
         @BindView(R.id.text_view) TextView mTextView;
 
-        public RecipiesViewHolder(View itemView) {
+        RecipiesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

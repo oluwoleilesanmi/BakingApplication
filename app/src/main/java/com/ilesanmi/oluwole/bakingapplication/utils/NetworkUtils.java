@@ -22,20 +22,20 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
     public static final String BASE_URL = "http://go.udacity.com/";
     public static final String FEED = "android-baking-app-json";
-    public static final String URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    private static final String URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
 
 
-    public static boolean isConnectedToInternet(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = null;
-        if (cm != null) {
-         //   activeNetwork = cm.getActiveNetworkInfo();
-        }
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-    }
+//    public static boolean isConnectedToInternet(Context context) {
+//        ConnectivityManager cm =
+//                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        NetworkInfo activeNetwork = null;
+//        if (cm != null) {
+//         //   activeNetwork = cm.getActiveNetworkInfo();
+//        }
+//        return activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
+//    }
 
     public static URL buildBakingAppUrl() throws MalformedURLException {
 

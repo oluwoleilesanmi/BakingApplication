@@ -54,15 +54,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
         mUnBinder = unBinder;
     }
 
-    @Override
-    public boolean isNetworkConnected() {
-        return false;
-    }
+//    @Override
+//    public boolean isNetworkConnected() {
+//        return false;
+//    }
 
     public void updateViewInActivity(ArrayList<Recipe> recipeList) {
 
     }
 
-    protected abstract void setUp();
+    //protected abstract void setUp();
 
 }

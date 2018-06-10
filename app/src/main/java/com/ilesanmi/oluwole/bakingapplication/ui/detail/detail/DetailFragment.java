@@ -1,14 +1,10 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail.detail;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +41,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
     @BindBool(R.bool.m_pane_mode)
     boolean mTwoPane;
 
-    DetailPagerAdapter mPagerAdapter;
+    private DetailPagerAdapter mPagerAdapter;
 
     public static DetailFragment newInstance() {
         Bundle arguments = new Bundle();
@@ -73,28 +69,9 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
 
 
     @Override

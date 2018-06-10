@@ -33,10 +33,10 @@ public abstract class BaseFragment extends Fragment implements MvpView{
         }
     }
 
-    @Override
-    public boolean isNetworkConnected() {
-        return false;
-    }
+//    @Override
+//    public boolean isNetworkConnected() {
+//        return false;
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -48,7 +48,7 @@ public abstract class BaseFragment extends Fragment implements MvpView{
         }
     }
 
-    public ActivityComponent getActivityComponent() {
+    protected ActivityComponent getActivityComponent() {
         if (mActivity != null) {
             return mActivity.getActivityComponent();
         }

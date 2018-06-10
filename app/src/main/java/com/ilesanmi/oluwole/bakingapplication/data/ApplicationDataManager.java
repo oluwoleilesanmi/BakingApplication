@@ -23,7 +23,7 @@ public class ApplicationDataManager implements DataManager {
     private final DbHelper mDbHelper;
     private final PreferenceHelper mPreferenceHelper;
     private final ApiHelper mApiHelper;
-    List<Recipe> caches;
+    private List<Recipe> caches;
 
     @Inject
     public ApplicationDataManager(@ApplicationContext Context context, DbHelper dbHelper, ApiHelper apiHelper,
@@ -47,7 +47,7 @@ public class ApplicationDataManager implements DataManager {
     }
 
 //Database uses list internet uses arraylist
-   public Flowable<List<Recipe>> refreshData() {
+private Flowable<List<Recipe>> refreshData() {
         return getRecipeApiCall().doOnNext(list -> {
             // Clear cache
             caches.clear();

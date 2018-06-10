@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class IngredientDetailAdapter extends BaseAdapter {
     private Context context;
-    ArrayList<Recipe> mRecipeList;
+    private ArrayList<Recipe> mRecipeList;
     private int size = 0;
     private int positionClick = 0;
 
@@ -38,7 +38,7 @@ public class IngredientDetailAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList, int position) {
+    private int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList, int position) {
         return recipeList.get(position).getSteps().size();
     }
 

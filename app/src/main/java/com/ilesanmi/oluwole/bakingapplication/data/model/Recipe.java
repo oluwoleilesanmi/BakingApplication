@@ -2,13 +2,12 @@ package com.ilesanmi.oluwole.bakingapplication.data.model;
 
 import java.util.List;
 import java.util.ArrayList;
-import com.google.gson.annotations.Expose;
+
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.ColumnInfo;
 import com.google.gson.annotations.SerializedName;
 import android.arch.persistence.room.TypeConverters;
-import android.os.Parcelable;
 
 import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
 import com.ilesanmi.oluwole.bakingapplication.utils.StepsConverter;

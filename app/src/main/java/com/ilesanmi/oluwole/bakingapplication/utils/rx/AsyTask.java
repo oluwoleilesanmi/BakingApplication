@@ -2,7 +2,6 @@ package com.ilesanmi.oluwole.bakingapplication.utils.rx;
 
 import android.os.AsyncTask;
 
-import com.google.gson.Gson;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
 
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class AsyTask extends AsyncTask<Void, Void, String> {
     private String bakingAppJson = "";
-    public AsyncResponse asyncR = null;
+    private AsyncResponse asyncR = null;
 
     public interface AsyncResponse {
         void retrieveRecipes(List<Recipe> recipes);

@@ -8,10 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFragment;
 
-
-
-
-public class DetailPagerAdapter extends FragmentPagerAdapter {
+class DetailPagerAdapter extends FragmentPagerAdapter {
 
    private int mTabCount;
    private int positionM;
@@ -49,8 +46,8 @@ public class DetailPagerAdapter extends FragmentPagerAdapter {
         mTabCount = count;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return recipes.get(positionM).getSteps().get(positionS).getDescription();
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return recipes.get(positionM).getSteps().get(positionS).getDescription();
+//    }
 }

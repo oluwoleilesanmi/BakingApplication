@@ -97,17 +97,13 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         outState.putInt("DefaultOrientation", defaultOrientation);
     }
 
-    @Override
-    protected void setUp() {
-
-    }
 
     @Override
     public void openFragment(Boolean isIngredientClicked) {
         this.isIngredientClicked = isIngredientClicked;
     }
 
-    void updateCounterOnOrientationChange() {
+    private void updateCounterOnOrientationChange() {
         int currentOrientation = getResources().getConfiguration().orientation;
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE && defaultOrientation == Configuration.ORIENTATION_PORTRAIT) {
             ++orientationChange;

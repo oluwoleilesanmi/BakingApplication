@@ -1,10 +1,7 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
 
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.View;
 import javax.inject.Inject;
@@ -16,7 +13,6 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.google.android.exoplayer2.Timeline;
@@ -53,9 +49,9 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
     private SimpleExoPlayer player;
     private String videoUrl = " ";
-    boolean playWhenReady = true;
-    int playbackPosition = 0;
-    int currentWindow = 0;
+    private boolean playWhenReady = true;
+    private int playbackPosition = 0;
+    private int currentWindow = 0;
 
 
     public static StepDetailFragment newInstance(String description, String videoUrl,
@@ -152,11 +148,6 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-    }
 
 
     @Override

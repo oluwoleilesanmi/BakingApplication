@@ -7,7 +7,7 @@ import com.squareup.rx2.idler.Rx2Idler;
 import io.reactivex.plugins.RxJavaPlugins;
 
 //Code inspired by work from https://github.com/tir38/RxIdler.git.
-public class RxJavaTestRunner extends AndroidJUnitRunner {
+class RxJavaTestRunner extends AndroidJUnitRunner {
 
     @Override
     public void onStart() {

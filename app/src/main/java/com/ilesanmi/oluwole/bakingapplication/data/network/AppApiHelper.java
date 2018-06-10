@@ -12,7 +12,7 @@ import io.reactivex.Flowable;
 @Singleton
 public class AppApiHelper implements ApiHelper {
 
-    ApiCall mApiCall;
+    private ApiCall mApiCall;
 
     @Inject
     public AppApiHelper(ApiCall apiCall) {

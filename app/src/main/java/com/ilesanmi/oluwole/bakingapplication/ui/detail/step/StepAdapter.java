@@ -63,7 +63,7 @@ public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHol
         notifyDataSetChanged();
     }
 
-    public int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList, int position) {
+    private int getSizeOfListStepsNestedInRecipe(ArrayList<Recipe> recipeList, int position) {
         return recipeList.get(position).getSteps().size();
     }
 
@@ -72,7 +72,7 @@ public class StepAdapter extends BaseRecyclerViewAdapter<StepAdapter.StepViewHol
         @BindView(R.id.text_view)
         TextView mTextView;
 
-        public StepViewHolder(View itemView) {
+        StepViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

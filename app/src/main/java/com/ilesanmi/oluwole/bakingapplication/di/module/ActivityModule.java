@@ -27,7 +27,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpView;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.main.MainMvpPresenter;
-import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailPagerAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.step.StepMvpView;
