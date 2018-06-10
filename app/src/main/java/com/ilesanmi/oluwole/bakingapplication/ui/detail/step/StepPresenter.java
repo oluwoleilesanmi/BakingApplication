@@ -49,8 +49,9 @@ public class StepPresenter<V extends StepMvpView> extends BasePresenter<V>
             return;
         }
         if (list != null && !list.isEmpty()) {
-            int positionClick = getDataManager().getPositionClickedInMainActivity();
-            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionClick);
+            int positionM = getDataManager().getPositionClickedInMainActivity();
+            int positionS = getDataManager().getPositionClickedInStepFragment();
+            getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionM,positionS);
         }
 
     }

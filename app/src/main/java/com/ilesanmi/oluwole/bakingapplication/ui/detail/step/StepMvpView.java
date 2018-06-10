@@ -7,5 +7,5 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.MvpView;
 import java.util.ArrayList;
 
 public interface StepMvpView extends MvpView {
-    void updateViewInActivity(ArrayList<Recipe> recipeList, int positionClick);
+    void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS);
 }

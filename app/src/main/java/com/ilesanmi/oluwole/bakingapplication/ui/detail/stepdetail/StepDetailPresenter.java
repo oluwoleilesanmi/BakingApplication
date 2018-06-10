@@ -3,12 +3,8 @@ package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
 import android.util.Log;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
-import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BasePresenter;
 import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

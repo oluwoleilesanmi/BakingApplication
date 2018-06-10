@@ -21,8 +21,6 @@ import butterknife.ButterKnife;
 
 public class IngredientDetailFragment extends BaseFragment implements IngredientDetailMvpView {
 
-    public static final String FRAGMENT_INGREDIENT_ID = "Ingredient_Detail_Id";
-
     @Inject
     IngredientDetailMvpPresenter<IngredientDetailMvpView> mPresenter;
 

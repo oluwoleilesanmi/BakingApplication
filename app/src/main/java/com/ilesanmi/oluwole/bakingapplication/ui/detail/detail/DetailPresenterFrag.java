@@ -42,7 +42,6 @@ public class DetailPresenterFrag<V extends DetailMvpViewFrag> extends BasePresen
             int positionM = getDataManager().getPositionClickedInMainActivity();
             int positionS = getDataManager().getPositionClickedInStepFragment();
             getMvpView().updateViewInActivity((ArrayList<Recipe>) list,positionM,positionS);
-           // Log.i("StepDetail","Inside the belly of the beastsss");
         }
 
     }

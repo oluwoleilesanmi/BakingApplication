@@ -60,7 +60,6 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-      //  ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -83,14 +82,12 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
     @Override
     public void onResume() {
         super.onResume();
-      //  mViewPager.setCurrentItem(0);
-        //   recipeStepPresenter.subscribe();
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //recipeStepPresenter.unsubscribe();
     }
 
     @Override
@@ -102,7 +99,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
 
     @Override
     public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS) {
-            mPagerAdapter = new DetailPagerAdapter(getChildFragmentManager(),recipeList,positionM,positionS);
+        mPagerAdapter = new DetailPagerAdapter(getChildFragmentManager(), recipeList, positionM, positionS);
         mPagerAdapter.setCount(1);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.step_detail)));
@@ -110,7 +107,6 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        //mPagerAdapter.notifyDataSetChanged();
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

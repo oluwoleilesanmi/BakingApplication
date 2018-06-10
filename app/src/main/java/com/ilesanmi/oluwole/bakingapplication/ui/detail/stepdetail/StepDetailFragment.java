@@ -1,11 +1,12 @@
 package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
 
-import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.View;
-import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.BindView;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.google.android.exoplayer2.Timeline;
@@ -33,7 +36,6 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
 
@@ -41,8 +43,7 @@ import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
  * Created by abayomi on 19/03/2018.
  */
 
-public class
-StepDetailFragment extends BaseFragment implements StepDetailMvpView {
+public class StepDetailFragment extends BaseFragment implements StepDetailMvpView {
 
     @BindView(R.id.exo_player_view)
     SimpleExoPlayerView mExoPlayerView;
@@ -56,9 +57,9 @@ StepDetailFragment extends BaseFragment implements StepDetailMvpView {
     int playbackPosition = 0;
     int currentWindow = 0;
 
+
     public static StepDetailFragment newInstance(String description, String videoUrl,
                                                            String imageUrl) {
-
         Bundle arguments = new Bundle();
         arguments.putString("description", description);
         arguments.putString("video", videoUrl);
@@ -85,6 +86,7 @@ StepDetailFragment extends BaseFragment implements StepDetailMvpView {
 
         return view;
     }
+
 
 
 

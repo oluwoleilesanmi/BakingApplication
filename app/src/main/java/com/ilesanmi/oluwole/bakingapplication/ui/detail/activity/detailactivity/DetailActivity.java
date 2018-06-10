@@ -14,7 +14,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.Ingredi
 
 import javax.inject.Inject;
 
-import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.ButterKnife;
 
@@ -23,22 +22,18 @@ import butterknife.ButterKnife;
  */
 
 public class DetailActivity extends BaseActivity implements DetailMvpView {
+    private static final int ORIENTATION_DID_NOT_CHANGE = 0;
 
-
-    DetailFragment detailFragment;
-    IngredientDetailFragment ingredientDetailFragment;
-
-    @Inject
-    DetailMvpPresenter<DetailMvpView> mPresenter;
-
-    boolean isIngredientClicked = false;
-
-    boolean questionIsIngredientClicked;
-
-    int orientationChanged = 0;
+    private DetailFragment detailFragment;
+    private boolean isIngredientClicked = false;
+    private IngredientDetailFragment ingredientDetailFragment;
+    private int orientationChange = ORIENTATION_DID_NOT_CHANGE;
 
     @BindInt(R.integer.orientation)
     int defaultOrientation;
+
+    @Inject
+    DetailMvpPresenter<DetailMvpView> mPresenter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -49,25 +44,24 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         getActivityComponent().inject(this);
         ButterKnife.bind(this);
         mPresenter.onAttach(DetailActivity.this);
 
+        //Used to restore the initial starting values of click and orientation
         if (savedInstanceState != null) {
-            questionIsIngredientClicked = savedInstanceState.getBoolean("IsIngredientClicked");
-            orientationChanged = savedInstanceState.getInt("OrientationChanged");
+            isIngredientClicked = savedInstanceState.getBoolean("IsIngredientClicked");
+            orientationChange = savedInstanceState.getInt("OrientationChange");
             defaultOrientation = savedInstanceState.getInt("DefaultOrientation");
         }
 
-        int currentOrientation = getResources().getConfiguration().orientation;
-        //int orientation = getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE && defaultOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            ++orientationChanged;
-        }else if(currentOrientation == Configuration.ORIENTATION_PORTRAIT && defaultOrientation == Configuration.ORIENTATION_LANDSCAPE){
-            ++orientationChanged;
-        }
 
-        if (orientationChanged == 0) {
+        //Detect if orientation changed and update counter for orientation change
+        updateCounterOnOrientationChange();
+
+        //Used to create and restore fragment that was created on orientation changed
+        if (orientationChange == ORIENTATION_DID_NOT_CHANGE) {
             mPresenter.isIngredientClickedInStep();
             if (ingredientDetailFragment == null && isIngredientClicked) {
                 ingredientDetailFragment = IngredientDetailFragment.newInstance();
@@ -85,10 +79,10 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
                 transaction.add(R.id.detail_fragment_container, detailFragment);
                 transaction.commit();
             }
-        } else if (orientationChanged > 0 && questionIsIngredientClicked) {
+        } else if (orientationChange > ORIENTATION_DID_NOT_CHANGE && isIngredientClicked) {
             ingredientDetailFragment =
                     (IngredientDetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container);
-        } else if (orientationChanged > 0 && !questionIsIngredientClicked) {
+        } else if (orientationChange > ORIENTATION_DID_NOT_CHANGE && !isIngredientClicked) {
             detailFragment =
                     (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container);
         }
@@ -98,9 +92,9 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("IsIngredientClicked", questionIsIngredientClicked);
-        outState.putInt("OrientationChanged", orientationChanged);
-        outState.putInt("DefaultOrientation",defaultOrientation);
+        outState.putBoolean("IsIngredientClicked", isIngredientClicked);
+        outState.putInt("OrientationChange", orientationChange);
+        outState.putInt("DefaultOrientation", defaultOrientation);
     }
 
     @Override
@@ -109,8 +103,16 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     }
 
     @Override
-    public void openFragment(Boolean ingredientClick) {
-        isIngredientClicked = ingredientClick;
-        questionIsIngredientClicked = ingredientClick;
+    public void openFragment(Boolean isIngredientClicked) {
+        this.isIngredientClicked = isIngredientClicked;
+    }
+
+    void updateCounterOnOrientationChange() {
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE && defaultOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            ++orientationChange;
+        } else if (currentOrientation == Configuration.ORIENTATION_PORTRAIT && defaultOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ++orientationChange;
+        }
     }
 }

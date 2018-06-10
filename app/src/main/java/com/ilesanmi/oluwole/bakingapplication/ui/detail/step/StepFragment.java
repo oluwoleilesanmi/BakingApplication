@@ -41,8 +41,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailFra
 
 public class StepFragment extends BaseFragment implements StepMvpView {
 
-    public static final String FRAGMENT_ID = "Step_Id";
-
     @Inject
     StepMvpPresenter<StepMvpView> mPresenter;
 
@@ -57,6 +55,10 @@ public class StepFragment extends BaseFragment implements StepMvpView {
 
     @BindBool(R.bool.m_pane_mode)
     boolean mTwoPane;
+
+    String description;
+    String videoUrl;
+    String imageUrl;
 
     public static StepFragment newInstance() {
         Bundle arguments = new Bundle();
@@ -96,7 +98,7 @@ public class StepFragment extends BaseFragment implements StepMvpView {
         } else {
             mPresenter.ingredientIsPressed(true);
             startActivity(DetailActivity.getStartIntent(getContext()));
-            }
+        }
     }
 
     public void createRecyclerView() {
@@ -108,7 +110,8 @@ public class StepFragment extends BaseFragment implements StepMvpView {
             mPresenter.stepPressed(position);
 
             if (mTwoPane) {
-                replaceStepDetailInMultiPane();
+                mPresenter.onViewPrepared(false);
+
             } else {
                 startActivity(DetailActivity.getStartIntent(getContext()));
 
@@ -117,14 +120,20 @@ public class StepFragment extends BaseFragment implements StepMvpView {
     }
 
     @Override
-    public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionClick) {
-        mStepAdapter.addItems(recipeList, positionClick);
+    public void updateViewInActivity(ArrayList<Recipe> recipes, int positionM, int positionS) {
+        mStepAdapter.addItems(recipes, positionM);
+        if (mTwoPane) {
+            description = recipes.get(positionM).getSteps().get(positionS).getDescription();
+            videoUrl = recipes.get(positionM).getSteps().get(positionS).getVideoURL();
+            imageUrl = recipes.get(positionM).getSteps().get(positionS).getThumbnailURL();
+            replaceStepDetailInMultiPane();
+        }
     }
 
 
     public void replaceStepDetailInMultiPane() {
 
-        Fragment stepDetailFragment = new StepDetailFragment();
+        Fragment stepDetailFragment = StepDetailFragment.newInstance(description,videoUrl,imageUrl);
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.item_detail_container, stepDetailFragment)
