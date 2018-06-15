@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import io.reactivex.disposables.CompositeDisposable;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.di.PerActivity;
 import com.ilesanmi.oluwole.bakingapplication.di.ActivityContext;
 import com.ilesanmi.oluwole.bakingapplication.di.ApplicationContext;
@@ -18,6 +19,7 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.activity.detailactivity.
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.activity.detailactivity.DetailPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailMvpPresenterFrag;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailMvpViewFrag;
+import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailPagerAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailPresenterFrag;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailAdapter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailMvpPresenter;
@@ -36,6 +38,7 @@ import com.ilesanmi.oluwole.bakingapplication.utils.rx.SchedulerProvider;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailMvpPresenter;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailMvpView;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail.StepDetailPresenter;
+
 
 @Module
 public class ActivityModule {
@@ -74,7 +77,7 @@ public class ActivityModule {
 
 //    @Provides
 //    DetailPagerAdapter providePagerAdapter() {
-//        return new DetailPagerAdapter(mActivity.getSupportFragmentManager());
+//        return new DetailPagerAdapter(mActivity.getSupportFragmentManager(),new ArrayList<>(),0,0);
 //    }
 
     @Provides

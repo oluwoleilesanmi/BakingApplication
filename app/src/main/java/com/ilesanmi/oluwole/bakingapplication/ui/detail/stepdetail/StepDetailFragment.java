@@ -4,10 +4,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
+
 import android.view.ViewGroup;
+
 import butterknife.ButterKnife;
+
 import android.view.LayoutInflater;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -34,6 +39,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
+import com.ilesanmi.oluwole.bakingapplication.utils.ExoUtil;
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -47,15 +53,15 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     @Inject
     StepDetailMvpPresenter<StepDetailMvpView> mPresenter;
 
+
     private SimpleExoPlayer player;
     private String videoUrl = " ";
     private boolean playWhenReady = true;
-    private int playbackPosition = 0;
+    private long playbackPosition = 0;
     private int currentWindow = 0;
 
-
     public static StepDetailFragment newInstance(String description, String videoUrl,
-                                                           String imageUrl) {
+                                                 String imageUrl) {
         Bundle arguments = new Bundle();
         arguments.putString("description", description);
         arguments.putString("video", videoUrl);
@@ -77,17 +83,23 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
             ButterKnife.bind(this, view);
             mPresenter.onAttach(this);
         }
-        videoUrl = getArguments().getString("video");
-        initializePlayer();
+        if (savedInstanceState != null) {
+            mPresenter.retrieveVideoDataInSharedPref();
+        }
 
+        videoUrl = getArguments().getString("video");
         return view;
     }
 
-
-
+    //The onSaveInstanceState of a fragment is not gaurenteed to be called after onPause.
+    //Encountered some unexpected behaviour when trying to implement saved state on rotation with viewpager.
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("WHEN_SCREEN_ROTATES", 1);
+    }
 
     private void initializePlayer() {
-
         DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
 
         player = ExoPlayerFactory.newSimpleInstance(
@@ -97,8 +109,6 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         player.seekTo(currentWindow, playbackPosition);
 
         mExoPlayerView.setPlayer(player);
-
-        player.addListener(this);
 
         Uri uri = Uri.parse(videoUrl);
         DataSource.Factory mediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
@@ -113,9 +123,18 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         player.setPlayWhenReady(playWhenReady);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer();
+    }
+
+
     @Override
     public void onPause() {
         super.onPause();
+        storeVideoDataInPref();
         releasePlayer();
     }
 
@@ -134,8 +153,13 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         }
     }
 
+    private void storeVideoDataInPref() {
+        mPresenter.storeVideoDataInSharedPref(videoUrl, player.getPlayWhenReady(),
+                Math.max(0, player.getCurrentPosition()), player.getCurrentWindowIndex());
+    }
 
-//used to make ui dissapear
+
+    //used to make ui dissapear
     @SuppressLint("InlinedApi")
     private void hideSystemUi() {
         mExoPlayerView.setSystemUiVisibility(
@@ -149,42 +173,13 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     }
 
 
-
     @Override
-    public void onTimelineChanged(Timeline timeline, Object manifest) {
-
+    public void updateVideoView(String videoUrl, Boolean playWhenReady, Long playBackPosition, int currentWindowIndex) {
+        this.videoUrl = videoUrl;
+        this.playWhenReady = playWhenReady;
+        this.playbackPosition = playBackPosition;
+        this.currentWindow = currentWindowIndex;
     }
-
-    @Override
-    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
-    }
-
-    @Override
-    public void onLoadingChanged(boolean isLoading) {
-
-    }
-
-    @Override
-    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-    }
-
-    @Override
-    public void onPlayerError(ExoPlaybackException error) {
-        Log.i("ExoPlayer", "onPlayerError");
-    }
-
-    @Override
-    public void onPositionDiscontinuity() {
-
-    }
-
-    @Override
-    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-    }
-
 
 
 }

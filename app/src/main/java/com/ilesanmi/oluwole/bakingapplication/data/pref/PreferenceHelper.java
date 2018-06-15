@@ -12,4 +12,18 @@ public interface PreferenceHelper {
 
     void setIngredientClickInStepFragment(Boolean flag);
     Boolean getIngredientClickInStepFragment();
+
+    void setVideoUrlOfStepDetailFragment(String videoUrl);
+    String getVideoUrlOfStepDetailFragment();
+
+    void setPlayWhenReadyOfStepDetailFragment(Boolean playWhenReady);
+    Boolean getPlayWhenReadyOfStepDetailFragment();
+
+    void setPlayBackPositionOfStepDetailFragment(Long playBackPosition);
+    Long getPlayBackPositionOfStepDetailFragment();
+
+    void setCurrentWindowIndexOfStepDetailFragment(int currentWindowIndex);
+    int getCurrentWindowIndexOfStepDetailFragment();
+
+
 }

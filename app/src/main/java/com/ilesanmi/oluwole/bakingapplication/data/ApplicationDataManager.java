@@ -2,9 +2,12 @@ package com.ilesanmi.oluwole.bakingapplication.data;
 
 import java.util.List;
 import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import io.reactivex.Flowable;
+
 import android.content.Context;
 
 import com.ilesanmi.oluwole.bakingapplication.data.db.DbHelper;
@@ -46,8 +49,8 @@ public class ApplicationDataManager implements DataManager {
         mDbHelper.addRecipe(recipe);
     }
 
-//Database uses list internet uses arraylist
-private Flowable<List<Recipe>> refreshData() {
+    //Database uses list internet uses arraylist
+    private Flowable<List<Recipe>> refreshData() {
         return getRecipeApiCall().doOnNext(list -> {
             // Clear cache
             caches.clear();
@@ -58,7 +61,7 @@ private Flowable<List<Recipe>> refreshData() {
             caches.add(recipe);
             addRecipe(recipe);
         }).toList().toFlowable();
-   }
+    }
 
 
     @Override
@@ -89,7 +92,8 @@ private Flowable<List<Recipe>> refreshData() {
 
     }
 
-    @Override public void clearData() {
+    @Override
+    public void clearData() {
         caches.clear();
         mDbHelper.clearData();
     }
@@ -111,7 +115,7 @@ private Flowable<List<Recipe>> refreshData() {
 
     @Override
     public int getPositionClickedInStepFragment() {
-     return mPreferenceHelper.getPositionClickedInStepFragment();
+        return mPreferenceHelper.getPositionClickedInStepFragment();
     }
 
     @Override
@@ -121,6 +125,47 @@ private Flowable<List<Recipe>> refreshData() {
 
     @Override
     public Boolean getIngredientClickInStepFragment() {
-       return mPreferenceHelper.getIngredientClickInStepFragment();
+        return mPreferenceHelper.getIngredientClickInStepFragment();
+    }
+
+    //Video data
+    @Override
+    public void setVideoUrlOfStepDetailFragment(String str) {
+        mPreferenceHelper.setVideoUrlOfStepDetailFragment(str);
+    }
+
+    @Override
+    public String getVideoUrlOfStepDetailFragment() {
+        return mPreferenceHelper.getVideoUrlOfStepDetailFragment();
+    }
+
+    @Override
+    public void setPlayWhenReadyOfStepDetailFragment(Boolean playWhenReady) {
+        mPreferenceHelper.setPlayWhenReadyOfStepDetailFragment(playWhenReady);
+    }
+
+    @Override
+    public Boolean getPlayWhenReadyOfStepDetailFragment() {
+        return mPreferenceHelper.getPlayWhenReadyOfStepDetailFragment();
+    }
+
+    @Override
+    public void setPlayBackPositionOfStepDetailFragment(Long playBackPosition) {
+        mPreferenceHelper.setPlayBackPositionOfStepDetailFragment(playBackPosition);
+    }
+
+    @Override
+    public Long getPlayBackPositionOfStepDetailFragment() {
+        return mPreferenceHelper.getPlayBackPositionOfStepDetailFragment();
+    }
+
+    @Override
+    public void setCurrentWindowIndexOfStepDetailFragment(int currentWindowIndex) {
+        mPreferenceHelper.setCurrentWindowIndexOfStepDetailFragment(currentWindowIndex);
+    }
+
+    @Override
+    public int getCurrentWindowIndexOfStepDetailFragment() {
+        return mPreferenceHelper.getCurrentWindowIndexOfStepDetailFragment();
     }
 }

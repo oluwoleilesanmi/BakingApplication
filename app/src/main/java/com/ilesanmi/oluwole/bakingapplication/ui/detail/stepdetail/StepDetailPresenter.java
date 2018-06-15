@@ -17,4 +17,18 @@ public class StepDetailPresenter<V extends StepDetailMvpView> extends BasePresen
     }
 
 
+    @Override
+    public void storeVideoDataInSharedPref(String videoUrl, Boolean playWhenReady, Long playBackPosition, int currentWindowIndex) {
+        getDataManager().setVideoUrlOfStepDetailFragment(videoUrl);
+        getDataManager().setPlayWhenReadyOfStepDetailFragment(playWhenReady);
+        getDataManager().setPlayBackPositionOfStepDetailFragment(playBackPosition);
+        getDataManager().setCurrentWindowIndexOfStepDetailFragment(currentWindowIndex);
+    }
+    @Override
+    public void retrieveVideoDataInSharedPref() {
+        getMvpView().updateVideoView(getDataManager().getVideoUrlOfStepDetailFragment(),getDataManager().getPlayWhenReadyOfStepDetailFragment(),
+                getDataManager().getPlayBackPositionOfStepDetailFragment(),getDataManager().getCurrentWindowIndexOfStepDetailFragment());
+    }
+
+
 }

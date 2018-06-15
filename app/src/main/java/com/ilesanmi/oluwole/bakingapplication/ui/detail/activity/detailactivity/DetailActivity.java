@@ -13,7 +13,6 @@ import com.ilesanmi.oluwole.bakingapplication.ui.detail.detail.DetailFragment;
 import com.ilesanmi.oluwole.bakingapplication.ui.detail.ingredientdetail.IngredientDetailFragment;
 
 import javax.inject.Inject;
-
 import butterknife.BindInt;
 import butterknife.ButterKnife;
 
@@ -95,6 +94,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         outState.putBoolean("IsIngredientClicked", isIngredientClicked);
         outState.putInt("OrientationChange", orientationChange);
         outState.putInt("DefaultOrientation", defaultOrientation);
+
     }
 
 

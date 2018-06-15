@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,13 +67,9 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
 
         mPresenter.onViewPrepared(false);
 
+
         return view;
     }
-
-
-
-
-
 
     @Override
     public void updateViewInActivity(ArrayList<Recipe> recipeList, int positionM, int positionS) {
@@ -81,7 +78,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpViewFrag {
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.step_detail)));
 
-        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
+//        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
