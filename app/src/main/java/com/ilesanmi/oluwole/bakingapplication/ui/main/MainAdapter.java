@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseRecyclerViewAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,9 +25,10 @@ import butterknife.ButterKnife;
 public class MainAdapter extends BaseRecyclerViewAdapter<MainAdapter.RecipiesViewHolder> {
 
     private ArrayList<Recipe> mRecipeList;
+    private Context context;
 
-    public MainAdapter(ArrayList<Recipe> mRecipeList){
-//        Log.i("Adapter 1", "Nigeria");
+    public MainAdapter(ArrayList<Recipe> mRecipeList, Context context) {
+        this.context = context;
         this.mRecipeList = mRecipeList;
     }
 
@@ -48,11 +51,10 @@ public class MainAdapter extends BaseRecyclerViewAdapter<MainAdapter.RecipiesVie
     //The instance of RecipiesViewHolder returned from onCreateViewHolder above is passed to the parameter holder below.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-  //      Log.i("Adapter 2", mRecipeList.get(position).getName());
-
+        //      Log.i("Adapter 2", mRecipeList.get(position).getName());
         super.onBindViewHolder(viewHolder, position);
         RecipiesViewHolder recipiesViewHolder = (RecipiesViewHolder) viewHolder; //safe cast
-        recipiesViewHolder.bind(mRecipeList.get(position).getName(),"");
+        recipiesViewHolder.bind(mRecipeList.get(position).getName(),mRecipeList.get(position).getImage());
     }
 
     @Override
@@ -67,17 +69,36 @@ public class MainAdapter extends BaseRecyclerViewAdapter<MainAdapter.RecipiesVie
 
     class RecipiesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_view) TextView mTextView;
+        @BindView(R.id.text_view)
+        TextView mTextView;
+
+        @BindView(R.id.main_image_view)
+        ImageView mImageView;
 
         RecipiesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(String author, String content) {
+        void bind(String author, String imageUrl) {
 
-           mTextView.setText(author);
-            //listItemContentView.setText(content);
+            mTextView.setText(author);
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+
+                Picasso.with(context)
+                        .load(imageUrl)
+                        .into(mImageView);
+            } else {
+                setImageViewVisibility(mImageView, false);
+            }
+        }
+
+        private void setImageViewVisibility(View view, boolean imageAvailable) {
+            if (imageAvailable) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -2,7 +2,6 @@ package com.ilesanmi.oluwole.bakingapplication.ui.detail.stepdetail;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -20,29 +19,22 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.ilesanmi.oluwole.bakingapplication.di.components.ActivityComponent;
 import com.ilesanmi.oluwole.bakingapplication.ui.base.BaseFragment;
-import com.ilesanmi.oluwole.bakingapplication.utils.ExoUtil;
 
 /**
  * Created by abayomi on 19/03/2018.
@@ -104,7 +96,6 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         } else {
             setImageViewVisibility(stepDetailThumbnail, false);
         }
-
 
         return view;
     }
