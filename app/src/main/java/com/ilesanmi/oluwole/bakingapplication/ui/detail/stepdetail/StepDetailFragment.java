@@ -17,7 +17,10 @@ import android.view.LayoutInflater;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.util.Util;
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.google.android.exoplayer2.Timeline;
@@ -49,6 +52,9 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
 
     @BindView(R.id.exo_player_view)
     SimpleExoPlayerView mExoPlayerView;
+
+    @BindView(R.id.recipe_step_detail_image)
+    ImageView stepDetailThumbnail;
 
     @Inject
     StepDetailMvpPresenter<StepDetailMvpView> mPresenter;
@@ -88,11 +94,32 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
         }
 
         videoUrl = getArguments().getString("video");
+        String imageUrl = getArguments().getString("image");
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(imageUrl)
+                    .into(stepDetailThumbnail);
+            setImageViewVisibility(stepDetailThumbnail, true);
+        } else {
+            setImageViewVisibility(stepDetailThumbnail, false);
+        }
+
+
         return view;
+    }
+
+    private void setImageViewVisibility(View view, boolean imageAvailable) {
+        if (imageAvailable) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     //The onSaveInstanceState of a fragment is not gaurenteed to be called after onPause.
     //Encountered some unexpected behaviour when trying to implement saved state on rotation with viewpager.
+    //More experiments can be done to confirm claims.
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -134,6 +161,9 @@ public class StepDetailFragment extends BaseFragment implements StepDetailMvpVie
     @Override
     public void onPause() {
         super.onPause();
+        this.playWhenReady = player.getPlayWhenReady();
+        this.playbackPosition = Math.max(0, player.getCurrentPosition());
+        this.currentWindow = player.getCurrentWindowIndex();
         storeVideoDataInPref();
         releasePlayer();
     }
