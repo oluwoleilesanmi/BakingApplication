@@ -9,14 +9,14 @@ import android.arch.persistence.room.ColumnInfo;
 import com.google.gson.annotations.SerializedName;
 import android.arch.persistence.room.TypeConverters;
 
-import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
+import com.ilesanmi.oluwole.bakingapplication.utils.DbConstants;
 import com.ilesanmi.oluwole.bakingapplication.utils.StepsConverter;
 import com.ilesanmi.oluwole.bakingapplication.utils.IngredientsConverter;
 
 
 
 
-@Entity(tableName = DbUtils.RECIPE_TABLE_NAME)
+@Entity(tableName = DbConstants.RECIPE_TABLE_NAME)
 public class Recipe{
 
     @SerializedName("id")

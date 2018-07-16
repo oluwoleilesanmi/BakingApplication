@@ -21,33 +21,16 @@ public class NetworkUtils {
     public static final String FEED = "android-baking-app-json";
     private static final String URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
 
-
-//    public static boolean isConnectedToInternet(Context context) {
-//        ConnectivityManager cm =
-//                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        NetworkInfo activeNetwork = null;
-//        if (cm != null) {
-//         //   activeNetwork = cm.getActiveNetworkInfo();
-//        }
-//        return activeNetwork != null &&
-//                activeNetwork.isConnectedOrConnecting();
-//    }
-
-    public static URL buildBakingAppUrl() throws MalformedURLException {
-
+    public static URL buildUrlForRemoteJsonFile() throws MalformedURLException {
         Uri builtUri = Uri.parse(URL);
-
         URL url = new URL(builtUri.toString());
-
-        Log.v(TAG, "Built URI " + url);
-
         return url;
     }
 
 
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+    public static String getResponseFromHttpUrl() throws IOException {
+
+        HttpURLConnection urlConnection = (HttpURLConnection) buildUrlForRemoteJsonFile().openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
 

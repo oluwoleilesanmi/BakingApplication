@@ -15,7 +15,7 @@ import com.ilesanmi.oluwole.bakingapplication.data.pref.AppPreferenceHelper;
 import com.ilesanmi.oluwole.bakingapplication.data.pref.PreferenceHelper;
 import com.ilesanmi.oluwole.bakingapplication.di.PreferenceInfo;
 import com.ilesanmi.oluwole.bakingapplication.utils.AppConstants;
-import com.ilesanmi.oluwole.bakingapplication.utils.DbUtils;
+import com.ilesanmi.oluwole.bakingapplication.utils.DbConstants;
 
 import com.ilesanmi.oluwole.bakingapplication.data.DataManager;
 import com.ilesanmi.oluwole.bakingapplication.data.db.AppDbHelper;
@@ -75,8 +75,6 @@ public class ApplicationModule {
         return appPreferencesHelper;
     }
 
-
-
     @Provides
     @PreferenceInfo
     String providePreferenceName() { return AppConstants.SHAREDPREF_NAME;
@@ -109,7 +107,7 @@ public class ApplicationModule {
     @Provides
     @Named(DATABASE)
     String provideDatabaseName() {
-        return DbUtils.DATABASE_NAME;
+        return DbConstants.DATABASE_NAME;
     }
 
     @Provides

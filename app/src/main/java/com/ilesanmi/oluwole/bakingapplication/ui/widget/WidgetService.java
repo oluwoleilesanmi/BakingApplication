@@ -8,8 +8,8 @@ import android.widget.RemoteViewsService;
 import com.ilesanmi.oluwole.bakingapplication.R;
 import com.ilesanmi.oluwole.bakingapplication.data.model.Recipe;
 import com.ilesanmi.oluwole.bakingapplication.utils.AppConstants;
+import com.ilesanmi.oluwole.bakingapplication.utils.StringProcessor;
 import com.ilesanmi.oluwole.bakingapplication.utils.NetworkUtils;
-import com.ilesanmi.oluwole.bakingapplication.utils.rx.AsyTask;
 
 
 import java.io.IOException;
@@ -41,19 +41,20 @@ class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
 
     }
 
-    //i put the network operation on a thread it didnt work
-    //i removed it for the asynctask it works
+    //placed network operation below in an asyncTask thread app crashes.
+    //Removed network operation below from the asyncTask thread app does-nt crash.
+    //The observation noted above should be investigated to confirm reason.
     public void onDataSetChanged() {
-        String bakingAppJson = "";
+        String jsonInStringForm = "";
         try {
-            bakingAppJson = NetworkUtils.getResponseFromHttpUrl(NetworkUtils.buildBakingAppUrl());
+            jsonInStringForm = NetworkUtils.getResponseFromHttpUrl();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         positionM = context.getSharedPreferences(AppConstants.SHAREDPREF_NAME,Context.MODE_PRIVATE)
                 .getInt("PREF_KEY_ACTIVITY_MAIN_POSITION_CLICKED",0);
-        recipes = (ArrayList<Recipe>) AsyTask.processResult(bakingAppJson);
+        recipes = (ArrayList<Recipe>) StringProcessor.process(jsonInStringForm);
 
     }
 
