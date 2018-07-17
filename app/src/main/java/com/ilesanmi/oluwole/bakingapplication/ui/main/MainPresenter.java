@@ -30,7 +30,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared(Boolean isInternetBound) {
-        getMvpView().showLoading();
+//        getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .loadRecipes(isInternetBound)
                 .subscribeOn(getSchedulerProvider().io())
